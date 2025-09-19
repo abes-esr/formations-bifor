@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+                
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+        
+        <ui:define name="etape">
+            <div class="chip bifor-blue white-text">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Choix de la session
+            </div>
+            <div class="chip">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Inscription
+            </div>
+            <div class="chip">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                Renseignement complémentaire
+            </div>
+            <div class="chip">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Confirmation
+            </div>
+        </ui:define>
+
+        <ui:define name="utilisateur">
+            <div class="chip" rendered="#{demande.estConnecte}">
+                <i class="fa fa-user"></i>&nbsp;
+                <h:outputText value="#{lang.LABEL_BIENVENUE}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.prenom}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.nom}"/>
+            </div>
+        </ui:define>
+
+        <ui:define name="encours">
+            <ul>
+                <li><h:outputText value="#{lang.LABEL_NOM_FORMATION}" /><b><h:outputText value="#{demande.typeFormation.nom}"/></b></li>
+            </ul>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_ETAPE1}"/>
+        </ui:define>
+        <ui:define name="contenu">
+            <h:outputText value="#{lang.LABEL_CONSIGNES_CHOIX_SESSION}" styleClass="consignes"/>
+            <h:form id="iForm2">
+                <h:panelGrid columns="3">
+                    <h:panelGroup>
+                        <h:outputLabel for="choixPrioritaireSelect" value="#{lang.LABEL_CHOIX_PRIORITAIRE}" styleClass="champ obligtoire"/>
+                        <h:outputText value="*" styleClass="obligatoire"/>
+                    </h:panelGroup>
+                    
+                    <h:panelGroup/>
+                    <h:panelGroup/>
+
+                    <h:selectOneMenu id="choixPrioritaireSelect" value="#{demande.choixPrioritaire}" onchange="document.forms.iForm2.submit()"
+                                      required="true" requiredMessage="#{lang.MSG_CHOIX_PRIORITAIRE_OBLIGATOIRE}"
+                                      valueChangeListener="#{inscriptionSessionsBean.changeChoixPrioritaire}">
+                        <f:selectItem itemLabel="Sélectionnez une session" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{inscriptionSessionsBean.sessionsPrioritaires}"/>
+                    </h:selectOneMenu>
+                    <rich:panel style="border:0px;" id="as1">
+                        <span class="fa-stack fa-lg">
+                            <i class="fa fa-square fa-stack-2x"></i>
+                            <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                        </span>
+                        <rich:tooltip layout="block" target="as1" >
+                            <h:outputText value="#{lang.AIDE_CHOIX_PRIORITAIRE}" />
+                        </rich:tooltip>
+                    </rich:panel>
+
+                    <h:message for="choixPrioritaireSelect" errorClass="message erreur"/>
+
+                    <h:panelGroup rendered="#{inscriptionSessionsBean.renderedSessionsSecondaires}">
+                        <h:panelGrid colums="1">
+                            <h:outputLabel for="choixSecondaireSelect" value="#{lang.LABEL_CHOIX_SECONDAIRE}. (#{lang.AIDE_CHOIX_SECONDAIRE})" escape="false" rendered="#{inscriptionSessionsBean.renderedSessionsSecondaires}"/>
+                        </h:panelGrid>
+                    </h:panelGroup>
+
+                    <h:panelGroup/>
+                    <h:panelGroup/>
+
+                    <h:selectOneMenu id="choixSecondaireSelect" value="#{demande.choixSecondaire}" rendered="#{inscriptionSessionsBean.renderedSessionsSecondaires}">
+                        <f:selectItem itemLabel="Sélectionnez une session secondaire (facultatif)" itemValue="" noSelectionOption="true" />
+                        <f:selectItems value="#{inscriptionSessionsBean.sessionsSecondaires}"/>
+                    </h:selectOneMenu>
+                    <h:message for="choixSecondaireSelect" errorClass="message erreur" rendered="#{inscriptionSessionsBean.renderedSessionsSecondaires}"/>
+                </h:panelGrid>
+
+                <div class="ligne_grise">&nbsp;</div>
+
+				<h:commandLink styleClass="btn grey" value="#{lang.LABEL_PRECEDENT}" action="#{inscriptionSessionsBean.back}" immediate="true"/>&nbsp;
+                <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_SUIVANT}" action="#{inscriptionSessionsBean.next}"/>
+                
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

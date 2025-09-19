@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_RETROUVER_MOTDEPASSE}"/>
+        </ui:define>        
+
+        <ui:define name="contenu">
+            <h:form id="iFormMdp">
+                <h:outputText value="#{lang.LABEL_MOTDEPASSE_RETROUVE}"/>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_RETOUR_CONNEXION}" action="#{connexionMonCompteBean.login}" type="submit"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

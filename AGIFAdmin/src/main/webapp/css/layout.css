@@ -1,0 +1,87 @@
+/* CSS Document */
+
+#lh_main {
+    width: 90%;
+    /* placement */
+    position:relative;
+    padding:0px 0px 50px 0px;
+    min-height: 100%;
+    margin: auto;
+    border: solid #7593bf 1px;
+    background:#FFFFFF;
+}
+
+#lh_main_test {
+    width: 90%;
+    /* placement */
+    position:relative;
+    padding:0px 0px 50px 0px;
+    min-height: 100%;
+    margin: auto;
+    border: solid #7593bf 1px;
+    background:#dda5b2;
+}
+
+* html #lh_main
+{
+    height: 100%;
+}
+
+#lh_header {
+    width: 100%;
+    height: 90px;
+    padding-left: 0px;
+    margin:0px;
+    background :#7593bf;
+}
+
+#lh_logo {
+    /* background: url(../images/abes_logo.gif) no-repeat;*/
+    height:90px;
+    width:120px;
+    background: white;
+    float:left;
+}
+#lh_logo img {
+     height: 72px;
+    margin-top: 15px;
+}
+#lh_banniere {
+    background: url(../images/abes_banniere.gif) no-repeat;
+    height:90px;
+    width:850px;
+    float:left;
+}
+#lh_menu {
+    width: 100%;
+    height: 70px;
+    /*background :#7593bf;*/
+}
+#lh_date {
+    padding:10px;
+    float:left;
+}
+#lh_content {
+    text-align:justify;
+    padding:20px;
+}
+#lh_footer {
+    position:absolute;
+    bottom :0;
+    left : 0;
+    width:100%;
+    /*background :#7593bf;*/
+    background-color: #7593bf;
+    background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #7593bf), color-stop(1, #404854));
+    background-image: -webkit-linear-gradient(top, #7593bf, #404854);
+    background-image: -moz-linear-gradient(top, #7593bf, #404854);
+    background-image: -o-linear-gradient(top, #7593bf, #404854);
+    background-image: linear-gradient(#7593bf, #404854);
+    height : 50px;
+}
+.footer {
+    padding:20px;
+    width:100%;
+    text-align:center;
+    color:#FFFFFF;
+}

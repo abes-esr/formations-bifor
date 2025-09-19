@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+    <description></description>
+    <display-name>Application BIFOR :Formulaire d'inscription aux
+        formations ABES (ECT)</display-name>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.enableControlSkinning</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+        <param-value>javax.faces.application.ViewHandler</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    
+    
+     <context-param>
+        <param-name>contextConfigLocation</param-name>
+        <param-value>
+                /WEB-INF/spring/springSecurityConfig.xml
+        </param-value>
+    </context-param>
+	
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>org.formation.servlet.FormationServletListener</listener-class>
+        <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+    </listener>
+     <servlet-mapping>
+        <servlet-name>FormateurServlet</servlet-name>
+        <url-pattern>/formateur/*</url-pattern>
+    </servlet-mapping>
+      <servlet>
+        <servlet-name>FormateurServlet</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>/WEB-INF/spring/springFormateurContext.xml</param-value>
+        </init-param>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+
+   
+    <servlet-mapping>
+        <servlet-name>Resource Servlet</servlet-name>
+        <url-pattern>/org.richfaces.resources/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Resource Servlet</servlet-name>
+        <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <session-config>
+        <session-timeout>30</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <error-page>
+        <exception-type>java.lang.Exception</exception-type>
+        <location>/faces/erreur.xhtml</location>
+    </error-page>
+    
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>
+            org.springframework.web.filter.DelegatingFilterProxy
+        </filter-class>
+    </filter>
+     
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+  
+</web-app>

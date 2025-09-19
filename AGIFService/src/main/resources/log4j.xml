@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration PUBLIC "-//APACHE//DTD LOG4J 1.2//EN" "http://logging.apache.org/log4j/1.2/apidocs/org/apache/log4j/xml/doc-files/log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+	<!-- DEBUG < INFO < WARN < ERROR < FATAL -->
+	<appender name="stdout-appender" class="org.apache.log4j.ConsoleAppender">
+		<layout class="org.apache.log4j.PatternLayout">
+			<param name="ConversionPattern" value="%d{yyyy-MM-dd HH:mm:ss.SSS} %5p %c{1}: %m%n" />
+		</layout>
+	</appender>
+
+	<!-- The Following 5 logs can be turned on and off while the server is running 
+		LIVE in order to trace the SQL and/or all JDBC coming out of the application. 
+		To turn a log on, set the level value to INFO or DEBUG (to see class name 
+		and line number information in the log) The DEBUG setting is much more inefficient 
+		but the output is much more useful. To turn off JDBC logging completely, 
+		you must set all 5 logs to a level higher than ERROR (FATAL is suggested.) -->
+
+	<!-- log SQL (pre-execution) plus exceptions caused by SQL -->
+	<logger name="jdbc.sqlonly" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<!-- log SQL with timing information, post execution -->
+	<logger name="jdbc.sqltiming" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<logger name="jdbc.connection" additivity="true">
+		<level value="error" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<!-- only use the two logs below to trace ALL JDBC information -->
+	<logger name="jdbc.audit" additivity="false">
+		<level value="fatal" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<logger name="jdbc.resultset" additivity="false">
+		<level value="fatal" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<!-- only use the for debug log4jdbc -->
+	<logger name="log4jdbc.debug" additivity="false">
+		<level value="fatal" />
+		<appender-ref ref="stdout-appender" />
+	</logger>
+
+	<root>
+		<level value="error" />
+		<appender-ref ref="stdout-appender" />
+	</root>
+</log4j:configuration>

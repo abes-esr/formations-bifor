@@ -1,0 +1,7 @@
+table.rf-cal-popup {
+    width: inherit;
+}
+
+table.rf-cal-popup td, table.rf-cal-popup th {
+    padding: 0px;
+}

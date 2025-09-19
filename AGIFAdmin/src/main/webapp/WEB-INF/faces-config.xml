@@ -1,0 +1,561 @@
+<?xml version='1.0' encoding='UTF-8'?>
+
+<!-- =========== FULL CONFIGURATION FILE ================================== -->
+
+<faces-config version="2.2"
+              xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd">
+
+    <application>
+        <locale-config>
+            <default-locale>fr</default-locale>
+            <supported-locale>en</supported-locale>
+        </locale-config>
+        <message-bundle>org.formation.ressources.MessagesValidation</message-bundle>
+        <resource-bundle>
+            <base-name>org.formation.ressources.MessagesLibelles</base-name>
+            <var>lang</var>
+        </resource-bundle>
+    </application>
+    <validator>
+        <validator-id>fieldValidator</validator-id>
+        <validator-class>org.formation.web.FieldValidator</validator-class>
+    </validator>
+
+    <converter>
+        <converter-for-class>org.formation.model.Sessions</converter-for-class>
+        <converter-class>org.formation.web.components.SessionsConverter</converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>
+            org.formation.model.TypeFormation
+        </converter-for-class>
+        <converter-class>
+            org.formation.web.components.TypeFormationConverter
+        </converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>
+            org.formation.model.TypeSession
+        </converter-for-class>
+        <converter-class>
+            org.formation.web.components.TypeSessionConverter
+        </converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>
+            org.formation.model.Formateur
+        </converter-for-class>
+        <converter-class>
+            org.formation.web.components.FormateurConverter
+        </converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>
+            org.formation.model.Lieu
+        </converter-for-class>
+        <converter-class>
+            org.formation.web.components.LieuConverter
+        </converter-class>
+    </converter>
+
+    <converter>
+        <converter-for-class>
+            org.formation.model.Statut
+        </converter-for-class>
+        <converter-class>
+            org.formation.web.components.StatutConverter
+        </converter-class>
+    </converter>
+
+
+    <managed-bean>
+        <description>Le service métier</description>
+        <managed-bean-name>agifManageService</managed-bean-name>
+        <managed-bean-class>org.formation.service.impl.AgifManageServiceImpl</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le generateur de documents</description>
+        <managed-bean-name>agifDocument</managed-bean-name>
+        <managed-bean-class>org.formation.writer.impl.AgifWriterImpl</managed-bean-class>
+        <managed-bean-scope>application</managed-bean-scope>
+    </managed-bean>
+
+   <managed-bean>
+        <description>Le bean d'accueil</description>
+        <managed-bean-name>indexBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.IndexBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>       
+    </managed-bean>
+    
+    <managed-bean>
+        <description>Le bean de la liste des sessions</description>
+        <managed-bean-name>listSessionsBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListSessionsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+   
+    
+
+    <managed-bean>
+        <description>Le bean de la liste des inscriptions</description>
+        <managed-bean-name>listInscriptionsBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListInscriptionsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listSessions</property-name>
+            <value>#{listSessionsBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>document</property-name>
+            <value>#{agifDocument}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la modification des inscriptions</description>
+        <managed-bean-name>editInscriptionBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditInscriptionBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>
+        <managed-property>
+            <property-name>listInscriptions</property-name>
+            <value>#{listInscriptionsBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+
+
+
+
+    <managed-bean>
+        <description>Le bean de confirmation de l'inscription</description>
+        <managed-bean-name>confirmInscriptionBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ConfirmInscriptionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>listInscriptions</property-name>
+            <value>#{listInscriptionsBean}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la liste des formateurs</description>
+        <managed-bean-name>listFormateursBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListFormateursBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de création et modification de formateur</description>
+        <managed-bean-name>editFormateurBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditFormateurBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listFormateurs</property-name>
+            <value>#{listFormateursBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la liste des lieux</description>
+        <managed-bean-name>listLieuxBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListLieuxBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de création et modification du lieu</description>
+        <managed-bean-name>editLieuBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditLieuBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listLieux</property-name>
+            <value>#{listLieuxBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la liste des sessions</description>
+        <managed-bean-name>listSessionBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListSessionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de creation de session</description>
+        <managed-bean-name>editSessionsBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditSessionsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listSessions</property-name>
+            <value>#{listSessionBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la liste des formations</description>
+        <managed-bean-name>listFormationsBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListFormationsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de création et modification de formation</description>
+        <managed-bean-name>editFormationBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditFormationBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listFormations</property-name>
+            <value>#{listFormationsBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de la liste des questions</description>
+        <managed-bean-name>listQuestionsBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListQuestionsBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de création et modification d'une question</description>
+        <managed-bean-name>editQuestionBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditQuestionBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listQuestions</property-name>
+            <value>#{listQuestionsBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <description>Le bean de la liste des stagiaires</description>
+        <managed-bean-name>listStagiairesBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ListStagiairesBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean de création et modification de stagiaire</description>
+        <managed-bean-name>editStagiaireBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.EditStagiaireBean</managed-bean-class>
+        <managed-bean-scope>session</managed-bean-scope>
+        <managed-property>
+            <property-name>listStagiaires</property-name>
+            <value>#{listStagiairesBean}</value>
+        </managed-property>
+        <managed-property>
+            <property-name>service</property-name>
+            <value>#{agifManageService}</value>
+        </managed-property>
+    </managed-bean>
+    
+    
+    <managed-bean>
+        <description>Le bean de validation des inscriptions aux sessions</description>
+        <managed-bean-name>validInscriptionBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.ValidInscriptionBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>        
+    </managed-bean>
+
+    <managed-bean>
+        <description>Le bean d'affichage du css de la page</description>
+        <managed-bean-name>templateBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.TemplateBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>        
+    </managed-bean>
+    
+     <managed-bean>
+        <description>Le bean de trie et de recherche des des sessions</description>
+        <managed-bean-name>sessionsSortingFilteringBean</managed-bean-name>
+        <managed-bean-class>org.formation.web.SessionsSortingFilteringBean</managed-bean-class>
+        <managed-bean-scope>request</managed-bean-scope>        
+    </managed-bean>
+    
+    
+    <navigation-rule>
+        <from-view-id>/liste-sessions.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-sessions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>formateur</from-outcome>
+            <to-view-id>/liste-formateurs.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>lieu</from-outcome>
+            <to-view-id>/liste-lieux.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-sessions.xhtml</to-view-id>
+
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>refresh</from-outcome>
+            <to-view-id>/liste-sessions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-inscriptions.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-sessions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>edit</from-outcome>
+            <to-view-id>/edit-inscription.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>confirm</from-outcome>
+            <to-view-id>/confirm-inscription.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-inscription.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/confirm-inscription.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-inscriptions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/confirm-inscription.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-sessions.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/edit-sessions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-session.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-session.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-formateurs.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-formateur.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-formateur.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-formateur.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-formateurs.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-formateurs.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-lieux.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-lieu.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-lieu.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-lieu.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-lieux.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-lieux.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-session.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-sessions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-sessions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-formations.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-formation.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-formation.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-formation.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-formations.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-formations.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-questions.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-question.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-question.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-question.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-questions.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-questions.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/edit-stagiaire.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>success</from-outcome>
+            <to-view-id>/liste-stagiaires.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>back</from-outcome>
+            <to-view-id>/liste-stagiaires.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>error</from-outcome>
+            <to-view-id>/edit-stagiaire.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+    <navigation-rule>
+        <from-view-id>/liste-stagiaires.xhtml</from-view-id>
+        <navigation-case>
+            <from-outcome>new</from-outcome>
+            <to-view-id>/edit-stagiaire.xhtml</to-view-id>
+        </navigation-case>
+        <navigation-case>
+            <from-outcome>show</from-outcome>
+            <to-view-id>/edit-stagiaire.xhtml</to-view-id>
+        </navigation-case>
+    </navigation-rule>
+</faces-config>

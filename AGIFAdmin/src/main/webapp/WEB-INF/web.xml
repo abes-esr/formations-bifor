@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:web="http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
+         version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee">
+    <display-name>Administration de l'application de gestion des formations ABES (ECT)</display-name>
+    <context-param>
+        <param-name>javax.faces.DEFAULT_SUFFIX</param-name>
+        <param-value>.xhtml</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.BUILD_BEFORE_RESTORE</param-name>
+        <param-value>false</param-value>
+    </context-param>
+    <context-param>
+        <param-name>facelets.REFRESH_PERIOD</param-name>
+        <param-value>-1</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.ajax4jsf.VIEW_HANDLERS</param-name>
+        <param-value>com.sun.facelets.FaceletViewHandler</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.SKIN</param-name>
+        <param-value>blueSky</param-value>
+    </context-param>
+    <context-param>
+        <param-name>org.richfaces.resourceOptimization.enabled</param-name>
+        <param-value>true</param-value>
+    </context-param>
+    <listener>
+        <description>ServletContextListener</description>
+        <listener-class>org.formation.servlet.FormationServletListener</listener-class>
+    </listener>
+    <servlet>
+        <servlet-name>Faces Servlet</servlet-name>
+        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <servlet-name>ValidInscriptionServlet</servlet-name>
+        <servlet-class>org.formation.servlet.ValidInscriptionServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeAffectationServlet</servlet-name>
+        <servlet-class>org.formation.servlet.ChangeAffectationServlet</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ListInscriptionServlet</servlet-name>
+        <servlet-class>org.formation.servlet.ListInscriptionServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>Faces Servlet</servlet-name>
+        <url-pattern>/faces/*</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Resource Servlet</servlet-name>
+        <url-pattern>/org.richfaces.resources/*</url-pattern>
+    </servlet-mapping>
+    <servlet>
+        <servlet-name>Resource Servlet</servlet-name>
+        <servlet-class>org.richfaces.webapp.ResourceServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>    
+    <servlet-mapping>
+        <servlet-name>ValidInscriptionServlet</servlet-name>
+        <url-pattern>/validInscription</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeAffectationServlet</servlet-name>
+        <url-pattern>/changeAffectation</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ListInscriptionServlet</servlet-name>
+        <url-pattern>/ListInscriptionServlet</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>180</session-timeout>
+    </session-config>
+    <welcome-file-list>
+        <welcome-file>faces/index.xhtml</welcome-file>
+    </welcome-file-list>
+    <!--<security-constraint>
+        <display-name>Authentification des administrateurs des formations</display-name> -->
+        <!-- Liste des pages protégées -->
+       <!-- <web-resource-collection>
+            <web-resource-name>Page sécurisée</web-resource-name>
+            <url-pattern>/faces/*</url-pattern>
+        </web-resource-collection>   -->       
+        <!-- Rôles des utilisateurs ayant le droit d'y accéder -->
+       <!-- <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>-->
+        <!-- Type d'authentification -->
+       <!-- <auth-method>BASIC</auth-method>
+    </login-config>-->
+    <!-- Rôles utilisés dans l'application -->
+   <!-- <security-role>
+        <role-name>*</role-name>
+    </security-role> -->
+    <!--  <security-constraint>
+        <display-name>Authentification des administrateurs de BIFOR</display-name>
+        <web-resource-collection>
+            <web-resource-name>Page sécurisée</web-resource-name>
+            <url-pattern>/faces/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>*</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <login-config>
+        <auth-method>BASIC</auth-method>
+    </login-config>
+    <security-role>
+        <role-name>*</role-name>
+    </security-role> -->
+</web-app>

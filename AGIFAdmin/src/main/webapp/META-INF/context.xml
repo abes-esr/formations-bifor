@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context antiJARLocking="true" path="/AGIFAdmin">
+   <!--  <Realm   className="org.apache.catalina.realm.JNDIRealm"
+			  connectionURL="ldap://nirta.abes.fr:389"
+                              userBase="ou=personnels,ou=utilisateurs,dc=levant,dc=abes,dc=fr"
+			  userSubtree="true"
+			userSearch="(sn={0})"
+		/> -->
+ <!-- Specify a JDBC datasource -->
+   <Resource name="jdbc/AGIFDataSource"
+   auth="Container"
+   description="Oracle demande de formation database"
+   type="oracle.jdbc.pool.OracleDataSource"
+   driverClassName="oracle.jdbc.driver.OracleDriver"
+   factory="oracle.jdbc.pool.OracleDataSourceFactory"
+   url="${sql.url.prod}/ABES"
+   maxActive="8"
+   maxIdle="8"
+   minIdle="0"
+   maxWait="5000" />
+    <Resource name="jdbc/BaseCBS"
+   auth="Container"
+   description="base XML APISUDOC CBS"
+   type="oracle.jdbc.pool.OracleDataSource"
+   driverClassName="oracle.jdbc.driver.OracleDriver"
+   factory="oracle.jdbc.pool.OracleDataSourceFactory"
+   url="${sql.url.prod}/APISUDOC"
+   maxActive="8"
+   maxIdle="8"
+   minIdle="0"
+   maxWait="5000" />
+    <Resource name="jdbc/SybaseCBS"
+   auth="Container"
+   description="Sybase CBS BackOffice (users, ILN, RCRs...)"
+   type="javax.sql.DataSource"
+   driverClassName="net.sourceforge.jtds.jdbc.Driver"
+   url="jdbc:jtds:sybase://${cbs.backoffice.url}"
+   maxActive="8"
+   maxIdle="8"
+   minIdle="0"
+   maxWait="5000" />
+
+   <!-- <Realm className="org.apache.catalina.realm.JNDIRealm" 
+           connectionName="${catalina.realm.user}" connectionPassword="${catalina.realm.password}"
+           connectionURL="ldap://ldap-win-abes.abes.fr" debug="99" 
+           userBase="ou=personnels,ou=utilisateurs,dc=levant,dc=abes,dc=fr" 
+           userSearch="(sAMAccountName={0})" userSubtree="true"/> -->
+
+
+ <Realm 
+        className="org.apache.catalina.realm.JNDIRealm"
+        connectionURL="ldap://${catalina.realm.url}"
+        connectionName="${catalina.realm.user}"
+        connectionPassword="${catalina.realm.password}"
+        userBase="ou=personnels,ou=utilisateurs,dc=levant,dc=abes,dc=fr"  
+        userSearch="(sAMAccountName={0})"  
+        userSubtree="true"
+        debug="99"  />
+</Context>

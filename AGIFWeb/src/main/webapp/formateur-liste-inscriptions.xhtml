@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_VISU_SESSIONS}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DETAILS_SESSION}"/>
+        </ui:define>
+        <ui:define name="titre2">
+        </ui:define>
+        
+         <ui:define name="scripts">
+            <script type="text/javascript" language="javascript" src="/AGIFWeb/js/asupp/jquery-1.9.1.js"></script>
+            <script type="text/javascript" language="javascript" src="/AGIFWeb/js/asupp/jquery.dataTables.js"></script>        
+            <script type="text/javascript" src="/AGIFWeb/js/asupp/jquery.dataTables.columnFilter.js"></script>
+            <script type="text/javascript" src="/AGIFWeb/js/asupp/Datatable.fnClearFilter.js"></script>
+            <script type="text/javascript" language="javascript" src="/AGIFWeb/js/asupp/jquery.tooltip.js"></script>
+        </ui:define>
+        
+        <ui:define name="contenu">
+              <f:verbatim>          
+                <link rel="stylesheet" type="text/css" href="/AGIFWeb/css/asupp/jquery.dataTables.css" />
+                <link rel="stylesheet" type="text/css" href="/AGIFWeb/css/asupp/jquery.tooltip.css" />
+                
+                <script type="text/javascript" language="javascript">
+                    var asInitVals = new Array();
+
+                    $(document).ready(function() {
+                        // Si pas de stagiaire, pas de DataTables
+                        if ($('#listeinscriptions tbody tr').length > 1) {
+                        
+	                        $('div.item').tooltip();
+	                        var oTable = $('#listeinscriptions').dataTable({
+	                            "bSortCellsTop": true,
+	                            "iDisplayLength": 100,
+	                            "aaSorting": [[5, "desc"]],
+	                            "bAutoWidth": false,
+	                            "bStateSave": true,
+	                            "sCookiePrefix": "Liste_Inscriptions_DataTable_",
+	                            "iCookieDuration": "session",
+	                            "sPaginationType": "full_numbers",
+	                            "aoColumns": [
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": false}
+	                            ],
+	                            "oLanguage": {
+	                                "sProcessing": "Chargement...",
+	                                "sLengthMenu": "Afficher _MENU_ entrées",
+	                                "sZeroRecords": "Aucun résultat trouvé",
+	                                "sEmptyTable": "Aucune donnée dans la table",
+	                                "sInfo": "Affiche _START_ à _END_ sur un total de _TOTAL_ entrées",
+	                                "sInfoEmpty": "Affiche 0 entrées sur un total de 0 entrées",
+	                                "sInfoFiltered": "(filtrées sur un total de _MAX_ entrées)",
+	                                "sInfoPostFix": "",
+	                                "sSearch": "Chercher sur toutes les colonnes:",
+	                                "sUrl": "",
+	                                "oPaginate": {
+	                                   "sFirst": "&laquo;",
+	                                    "sPrevious": "&lt;",
+	                                    "sNext": "&gt;",
+	                                    "sLast": "&raquo;"
+	                                },
+	                                "fnInfoCallback": null}
+	                        });
+	                        
+	                        
+	                        $("thead input").keyup(function() {
+	                            /* Filter on the column (the index) of this element */
+	                            //oTable.fnFilter( this.value, $("thead input").index(this) );
+	                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+	                        });
+	                        
+	                        $("thead select").change(function() {
+	                            /* Filter on the column (the index) of this element */
+	                            //if ($(this).prop("selectedIndex")
+	                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+	                        });
+	                        
+	                        /*
+	                         * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+	                         * the footer
+	                         */
+	                        $("thead input").each(function(i) {
+	                            asInitVals[$(this).parent().parent().children('th').index($(this).parent())] = this.value;
+	                        });
+	                        
+	                        $("thead input").focus(function() {
+	                            if (this.className == "search_init")
+	                            {
+	                                this.className = "";
+	                                this.value = "";
+	                            }
+	                        });
+	
+	                        $('#effacer_filtres').click(function() {
+	                            var oTable = $('#listeinscriptions').dataTable();
+	                            oTable.fnFilterClear();
+	                            $("thead input").val("");
+	                            $("thead select").val("");
+	                        });
+	
+	                        $("thead input").blur(function(i) {
+	                            if (this.value == "")
+	                            {
+	                                this.className = "search_init";
+	                                this.value = asInitVals[$("thead input").parent().parent().children('th').index($(this).parent())];
+	                            }
+	                        });
+	                        function fill_search_fields() {
+	                            var oSettings = oTable.fnSettings();
+	                            $("thead input").each(function(i) {
+	                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+	                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+	                                    $(this).removeClass("search_init");
+	                                }
+	                            });
+	                            $("thead select").each(function(i) {
+	                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+	                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+	                                    $(this).removeClass("search_init");
+	                                }
+	                            });
+	                            if (oSettings.oPreviousSearch['sSearch'] != '') {
+	                                $('.search_field').val(oSettings.oPreviousSearch['sSearch']);
+	                            }
+	                        }
+	
+                        	  fill_search_fields();
+                        }
+                        else {
+                            $("#listeinscriptions").hide();
+                        }
+                        
+                    });
+                </script>
+            </f:verbatim>           
+            <h:outputText value="#{param['idsession']}" />
+
+            
+            <h:form prependId="false">
+                 <h:outputLink styleClass="action_datatables" id="effacer_filtres" >
+                    <h:outputText value="#{lang.LABEL_EFFACER_FILTRES}"/>
+                </h:outputLink>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide" warnClass="message info"/>
+                </h:panelGroup>
+                <h:dataTable value="#{formateurListInscriptionsBean.inscriptionItems}"
+                             var="item" 
+                             styleClass="tableau"
+                             headerClass="row_header"
+                             id="listeinscriptions"
+                             binding="#{formateurListInscriptionsBean.dataTable}"
+                             >
+                    <f:facet name="header">
+                        <h:outputText value="#{formateurListInscriptionsBean.formateurManageSessions.intitule}"/>                      
+                    </f:facet>
+          
+                   <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_DATE_INSCRIPTION}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_DATE_INSCRIPTION}" 
+                                       name="search_isncription"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                        <h:outputText value="#{item.dateinscription}">
+                           <f:convertDateTime pattern="yyyy/MM/dd HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+  
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_CHOIX}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_CHOIX}" 
+                                       name="search_choix"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{
+                                      (formateurListInscriptionsBean.formateurManageSessions.idsessions == item.idsessions1.idsessions) ?
+                                          lang.LABEL_PRIORITAIRE : lang.LABEL_SECONDAIRE}"/>
+
+                    </h:column>
+    
+                      <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_STATUT}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_STATUT}" 
+                                       name="search_statut"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{
+                                      (formateurListInscriptionsBean.formateurManageSessions.idsessions == item.idsessions1.idsessions) ?
+                                          item.etat : item.etat2}"
+                                          style="font-weight: bold;"/>
+
+                    </h:column>
+                    
+
+                   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_NOM}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_NOM}" 
+                                       name="search_stagiaire"  class="search_init"/>
+
+                            </f:verbatim>
+                            
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:outputText value="#{item.idstagiaire.nom}"/>
+                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="#{item.idstagiaire.prenom}"/>
+                            <h:outputText value="&nbsp;"/>
+                            (<h:outputText value="#{item.idstagiaire.civilite}"/>)
+                        </h:panelGroup>
+                            
+                    </h:column>
+                   
+             
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_ETABLISSEMENT}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_ETABLISSEMENT}" 
+                                       name="search_etablissement"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{item.idstagiaire.etablissement}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_INFORMATIONS}"/>
+                        </f:facet>
+                        <div class="item">
+                            <h:graphicImage value="/images/Show.png"
+                                            style="border: 0px"/>
+                            
+                            <div style="display:none" class="tooltip_description">
+                            <h:panelGroup> 
+                                <h:panelGrid columns="2">
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_ADRESSE}" />
+                                    <h:outputText value="#{item.idstagiaire.adresse}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CODEPOSTAL}" />
+                                    <h:outputText value="#{item.idstagiaire.codepostal}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_VILLE}" />
+                                    <h:outputText value="#{item.idstagiaire.ville}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_TELEPHONE}" />
+                                    <h:outputText value="#{item.idstagiaire.telephone}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_MAIL}" />
+                                    <h:outputText value="#{item.idstagiaire.mail}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_MAIL_COORDINATEUR}" />
+                                    <h:outputText value="#{item.idstagiaire.mailcoordinateur}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CHOIX_PRIORITAIRE}" />
+                                    <h:outputText value="#{item.idsessions1.titre}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CHOIX_SECONDAIRE}" />
+                                    <h:outputText value="#{item.idsessions2.titre}"/>
+
+                                </h:panelGrid>
+                                <h:dataTable value="#{item.reponseList}"
+                                             var="reponses" border="0"
+                                             cellpadding="2" cellspacing="2">
+                                    <h:column>
+                                        <h:outputText
+                                            value="#{reponses.idquestion.libellequestion}"
+                                            styleClass="champ"/>
+                                    </h:column>
+                                    <h:column>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="#{reponses.choix}"
+                                                          rendered="#{(reponses.idquestion.uniquemultiple
+                                                                      ne lang.VALUE_MULTIPLE)}"/>
+                                            <h:outputText value="#{reponses.specification}"
+                                                          rendered="#{reponses.idquestion.specification}"/>
+                                        </h:panelGrid>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:panelGroup>
+                        </div>
+                            </div>
+                    </h:column>
+                </h:dataTable>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{lang.LABEL_PLACES_DISPONIBLES}"/>
+                    <h:outputText value="#{formateurListInscriptionsBean.nbPlacesDisponibles}"/>
+                </h:panelGrid>
+            </h:form>
+            <br/>
+            <br/>
+
+        </ui:define>
+    </ui:composition>
+</html>
+
+

@@ -1,0 +1,109 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_LIEU}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_EDITION_LIEU}"/>
+        </ui:define>
+        <ui:define name="titre2">
+            <h:outputText value="#{editLieuBean.lieu.nom}"/>
+        </ui:define>
+        <ui:define name="contenu">
+
+            <h:form id="iFormlieu" >                
+
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:panelGrid columns="3" styleClass="formulaire" id="panel">
+                    <h:outputLabel for="nomInput" value="#{lang.LABEL_NOM_LIEU}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="nomInput" value="#{editLieuBean.lieu.nom}"
+                                 title="Nom" required="true"
+                                 requiredMessage="#{lang.MSG_NOM_LIEU_OBLIGATOIRE}"
+                                 size="50" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="nomInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="adresseInput"
+                                   value="#{lang.LABEL_ADRESSE_LIEU}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="adresseInput"
+                                     value="#{editLieuBean.lieu.adresse}"
+                                     required="true" 
+                                     requiredMessage="#{lang.MSG_NOM_LIEU_OBLIGATOIRE}"
+                                     title="Adresse" size="50" maxlength="200"/>
+                    <h:message for="adresseInput" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="adresse2Input"
+                                   value="#{lang.LABEL_ADRESSE}"/>
+                    <h:inputText id="adresse2Input"
+                                     value="#{editLieuBean.lieu.adresse2}"
+                                     title="Adresse complément" size="50" maxlength="200"/>
+                    <h:message for="adresse2Input" errorClass="message erreur"/>
+
+                     <h:outputLabel for="adresse3Input"
+                                    value="#{lang.LABEL_ADRESSE_SUITE}"/>
+                    <h:inputText id="adresse3Input"
+                                 value="#{editLieuBean.lieu.adresse3}"
+                                     title="Adresse complémentaire" size="50" maxlength="200"/>
+                    <h:message for="adresse3Input" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="villeInput"
+                                   value="#{lang.LABEL_VILLE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="villeInput"
+                                 value="#{editLieuBean.lieu.ville}"
+                                 title="Ville" required="true"
+                                 requiredMessage="#{lang.MSG_VILLE_OBLIGATOIRE}"
+                                 size="30" maxlength="30"
+                                style="text-transform:uppercase;">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="ville"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_VILLE_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="30"/>
+                    </h:inputText>
+                    <h:message for="villeInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="codePostalInput"
+                                   value="#{lang.LABEL_CODEPOSTAL}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="codePostalInput" 
+                                 value="#{editLieuBean.lieu.codepostal}"
+                                 title="Code postal" required="true"
+                                 requiredMessage="#{lang.MSG_CODEPOSTAL_OBLIGATOIRE}"
+                                 size="9" maxlength="5">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="codepostal"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_CODEPOSTAL_INVALIDE}"/>
+                        <f:validateLength minimum="5" maximum="5"/>
+                    </h:inputText>
+                    <h:message for="codePostalInput" errorClass="message erreur"/>
+                </h:panelGrid>
+
+                <h:commandButton  value="#{lang.LABEL_VALIDER}"
+                                  action="#{editLieuBean.save}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR_LIEU}"
+                                  immediate="true"
+                                  action="#{editLieuBean.back}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

@@ -1,0 +1,75 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_FORMATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_EDITION_FORMATEUR}"/>
+        </ui:define>
+        <ui:define name="titre2">
+            <h:outputText value="#{editFormateurBean.formateur.nom}"/>
+        </ui:define>
+        <ui:define name="contenu">
+
+            <h:form id="iForm" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide"/>
+                </h:panelGroup>
+
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:panelGrid columns="3" styleClass="formulaire" id="panel">
+                    <h:outputLabel for="nomInput" value="#{lang.LABEL_NOM_FORMATEUR}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="nomInput" value="#{editFormateurBean.formateur.nom}"
+                                 title="Nom" required="true"
+                                 requiredMessage="#{lang.MSG_NOM_OBLIGATOIRE}"
+                                 size="50" maxlength="200"
+                                 style="text-transform:uppercase;">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="name"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_NOM_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="nomInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="prenomInput" value="#{lang.LABEL_PRENOM}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="prenomInput" 
+                                 value="#{editFormateurBean.formateur.prenom}"
+                                 title="prenom" required="true"
+                                 requiredMessage="#{lang.MSG_PRENOM_OBLIGATOIRE}"
+                                 size="50" maxlength="200"
+                                 style="text-transform:capitalize;">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="firstname"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_PRENOM_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="prenomInput" errorClass="message erreur"/>
+                </h:panelGrid>
+
+                <h:commandButton  value="#{lang.LABEL_VALIDER}"
+                                  action="#{editFormateurBean.save}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR_FORMATEUR}"
+                                  immediate="true"
+                                  action="#{editFormateurBean.back}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

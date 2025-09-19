@@ -1,0 +1,91 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="scripts">
+            <script type = "text/javascript">
+
+                function checkUncheckAll() {
+
+                    var ch = true;
+                    document.getElementById('iFormConfirmation:j_idt59:0').checked?ch=false:ch=true;
+                    var checkboxes = document.querySelectorAll('input[type="checkbox"]');
+                    for (var i = 0; i &lt; checkboxes.length; i++) {
+                        checkboxes[i].checked = ch;
+                    }
+                }
+
+            </script>
+        </ui:define>
+
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_SESSIONS}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_GENERATION_CONFIRMATION}"/>
+        </ui:define>
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_SESSION}"/>&nbsp; : &nbsp;
+            <h:outputText value="#{confirmInscriptionBean.listInscriptions.manageSessions.intitule}"/>
+        </ui:define>
+        <ui:define name="contenu">
+            <h:form id="iFormConfirmation" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide"/>
+                </h:panelGroup>
+                <h:outputText value="#{lang.LABEL_LISTE_STAGIAIRES_CONFIRMES}"
+                              styleClass="en_cours"/>
+                <f:verbatim>
+                    <br/>                   
+                </f:verbatim>
+                <h:selectBooleanCheckbox value="true" onclick="checkUncheckAll()">(dé)cocher tout
+                </h:selectBooleanCheckbox>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                
+                <h:selectManyCheckbox value="#{confirmInscriptionBean.idStagiaires}"
+                                      layout="pageDirection">
+                    <f:selectItems value="#{confirmInscriptionBean.stagiaires}"/>
+                </h:selectManyCheckbox>
+
+                <f:verbatim>
+                
+                    <br/>
+                </f:verbatim>
+                <h:outputText value="#{lang.LABEL_TEXTE_CONFIRMATION}"
+                              styleClass="en_cours"/>
+
+                <h:panelGroup style="height:320px;width:400px;" layout="block">
+                    <rich:editor id="editor" width="400" height="300"
+                                 required="true"
+                                 requiredMessage="#{lang.MSG_MAIl_CONFIRMATION}"
+                                 value="#{confirmInscriptionBean.mailConfirmation}"/>
+                </h:panelGroup>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+
+               
+               
+                <h:commandButton  value="#{lang.LABEL_ENVOYER}"
+                                  action="#{confirmInscriptionBean.envoyer}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR}"
+                                  immediate="true"
+                                  action="back"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

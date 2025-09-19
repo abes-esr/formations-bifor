@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<b:beans xmlns="http://www.springframework.org/schema/security"
+		 xmlns:b="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+		 xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+	http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security.xsd">
+
+	<http use-expressions="false">
+
+		<csrf disabled="true" />
+
+
+		<intercept-url pattern="/faces/formateur-liste-sessions.xhtml"
+					   access="ROLE_USER" />
+		<intercept-url pattern="/faces/formateur-liste-inscriptions.xhtml"
+					   access="ROLE_USER" />
+		<intercept-url pattern="/formateur-maj-motdepasse.html"
+					   access="ROLE_USER" />
+		<intercept-url pattern="/**" access="IS_AUTHENTICATED_ANONYMOUSLY" />
+
+
+		<form-login login-page='/formateur-login.html'
+					default-target-url="/formateur-liste-sessions.xhtml"
+					authentication-failure-url="/formateur-login.html?error=true" />
+		<logout logout-success-url="/formateur-login.html" />
+	</http>
+
+
+	<b:bean id="myUserDetailsService"
+			class="org.formation.spring.formateur.authentication.MyUserDetailsService" />
+	<b:bean id="authenticationFailureListener"
+			class="org.formation.spring.formateur.authentication.AuthenticationFailureListener" />
+	<b:bean id="authenticationSuccessEventListener"
+			class="org.formation.spring.formateur.authentication.AuthenticationSuccessEventListener" />
+
+	<b:bean id="encoder"
+			class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
+		<b:constructor-arg name="strength" value="11" />
+	</b:bean>
+
+	<authentication-manager>
+		<authentication-provider user-service-ref="myUserDetailsService">
+			<password-encoder ref="encoder" />
+		</authentication-provider>
+	</authentication-manager>
+
+</b:beans>

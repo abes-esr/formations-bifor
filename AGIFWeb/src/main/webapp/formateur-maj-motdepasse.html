@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=utf-8">
+<title>Mise à jour du mot de passe</title></head>
+<body>
+    <h1>Mise à jour du mot de passe Formateur</h1>
+  <form name='f' action="formateur/savePassword" method='POST'>
+      <table>
+         <tr>
+            <td>Saisissez votre nouveau mot de passe :</td>
+            <td><input id="password" name="password" type="password" value="" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}"
+			onchange="
+			this.setCustomValidity(this.validity.patternMismatch ? this.title : '');
+			if(this.checkValidity()) f.confirm_password.pattern = RegExp.escape(this.value);"
+			title="Le mot de passe doit contenir au moins 8 caractères, au moins une majuscule, au moins un chiffre et au moins un caractère spécial (!@#$%&*())"
+			/></td>
+         </tr>
+          <tr>
+            <td>Confirmez votre nouveau mot de passe :</td>
+            <td><input id="confirm_password" type="password" value="" required pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[!@#$%&*()]).{8,}" 
+			title="Veuillez saisir le même mot de passe que ci-dessus"
+			onchange="this.setCustomValidity(this.validity.patternMismatch ? this.title : '');" /></td>
+         </tr>
+         <tr>
+            <td><input name="submit" type="submit" value="submit" /></td>
+         </tr>
+      </table>
+  </form>
+</body>
+</html>

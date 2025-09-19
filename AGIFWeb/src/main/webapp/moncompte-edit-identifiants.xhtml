@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_MODIFIER_IDENTIFIANTS}"/>
+        </ui:define> 
+
+        <ui:define name="menu_moncompte">
+            <li>
+                <a class="dropdown-button" href="#!" data-activates="dropdown-menu-compte">
+                    <h:outputText value="#{lang.LABEL_MODIFIER_COMPTE}"/>&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <ul id="dropdown-menu-compte" class="dropdown-content">
+                <li><h:commandLink value="#{lang.LABEL_MES_INSCRIPTIONS}" action="list" immediate="true"/></li>
+                <li><h:commandLink value="#{lang.LABEL_MES_INFORMATIONS_PERSONNELLES}" action="edit" immediate="true"/></li>
+                <li class="divider"></li>
+                <li><h:commandLink value="#{lang.LABEL_DECONNECTER}" action="#{stagiaireBean.logout}" immediate="true"/></li>
+            </ul>
+        </ui:define>
+
+        <ui:define name="contenu">
+            <h:form id="iForm">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list"  globalOnly="true" errorClass="message erreur" infoClass="message valide"/>
+                </h:panelGroup>
+
+                <fieldset>
+                    <legend><h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/></legend>
+                    <h:outputText value="#{lang.LABEL_INFORMATIONS_COMPTE}" />
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="loginInput" value="#{stagiaireBean.stagiaire.identifiant}" title="IDENTIFIANT" required="true" requiredMessage="#{lang.MSG_IDENTIFIANT_OBLIGATOIRE}" size="30" maxlength="15" validator="#{editIdentifiantsMonCompteBean.checkLogin}"/>
+                                <h:outputLabel for="loginInput" value="#{lang.LABEL_IDENTIFIANT}*" />
+                                <h:message for="loginInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_NOM_UTILISATEUR}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputSecret id="passwordInput" redisplay="true" value="#{editIdentifiantsMonCompteBean.newPassword}" title="MOTDEPASSE" required="true" requiredMessage="#{lang.MSG_MOTDEPASSE_OBLIGATOIRE}" size="30" maxlength="15">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="password"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_MOTDEPASSE_INVALIDE}"/>
+                                    <f:validateLength minimum="2" maximum="15"/>
+                                </h:inputSecret>
+                                <h:outputLabel for="passwordInput" value="#{lang.LABEL_NOUVEAU_MOTDEPASSE}*" />
+                                <h:message for="passwordInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_MOT_DE_PASSE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputSecret id="passwordConfirmInput" value="#{editIdentifiantsMonCompteBean.confirmPassword}" title="MOTDEPASSE" required="true" redisplay="true" requiredMessage="#{lang.MSG_MOTDEPASSE_OBLIGATOIRE}" size="30" maxlength="15" validator="#{editIdentifiantsMonCompteBean.checkPassword}"/>
+                                <h:outputLabel for="passwordConfirmInput" value="#{lang.LABEL_CONFIRMATION_NOUVEAU_MOTDEPASSE}*" />
+                                <h:message for="passwordConfirmInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_MOT_DE_PASSE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                <br /><br />
+                <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_ENREGISTRER}" type="submit" action="#{editIdentifiantsMonCompteBean.next}"/>
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_ANNULER}" action="#{editIdentifiantsMonCompteBean.back}" type="button" immediate="true" />
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

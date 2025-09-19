@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">            
+            <h:outputText value="#{lang.LABEL_LISTE_FORMATION}"/>
+            <h:outputText value="#{listFormationsBean.clean}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+        </ui:define>
+
+        <ui:define name="contenu">
+            <div class="row">
+                <div class="col s12 m12">
+                    <div class="slider">
+                        <ul class="slides">
+                            <li>
+                                <img src="images/slider_1.jpg" />
+                                <div class="caption center-align">
+                                    <h3>Les formations ABES</h3>
+                                    <h5 class="light grey-text text-lighten-3">Les formations que propose l'ABES</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="images/slider_2.jpg" />
+                                <div class="caption left-align">
+                                    <h3>Les formations ABES</h3>
+                                    <h5 class="light grey-text text-lighten-3">Les formations que propose l'ABES</h5>
+                                </div>
+                            </li>
+                            <li>
+                                <img src="images/slider_3.jpg" />
+                                <div class="caption right-align">
+                                    <h3>ABES</h3>
+                                    <h5 class="light grey-text text-lighten-3">Agence Bibliographique de l'Enseignement Supèrieur</h5>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <h:form>
+                <h:panelGroup rendered="#{not empty listFormationsBean.typeFormations}">
+                    <h:dataTable value="#{listFormationsBean.typeFormations}" var="formation" border="0" cellpadding="5"
+                                 cellspacing="5" rowClasses="row_on,row_off" rules="all" binding="#{listFormationsBean.dataTable}" styleClass="bordered">
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText styleClass="padding-right150" value="#{lang.LABEL_NOM_FORMATION_SIMPLE}"/>
+                             </f:facet>
+                            <h:outputText value=" #{formation.nom}"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText value="#{lang.LABEL_DESCRIPTION_FORMATION}"/>
+                            </f:facet>
+                            <h:outputText value="#{formation.description}" styleClass="preformatted"/>
+                        </h:column>
+                        <h:column>
+                            <f:facet name="header">
+                                <h:outputText escape="false" value="#{lang.LABEL_ACTION}"/>
+                            </f:facet>
+                            <h:commandLink styleClass="btn bifor-blue" value="#{lang.LABEL_INSCRIPTION}" action="#{listFormationsBean.register}"/>
+                        </h:column>
+                    </h:dataTable>
+                </h:panelGroup>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

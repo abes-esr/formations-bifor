@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich"  >
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">            
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+        
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_HISTORIQUE_INSCRIPTIONS}"/>
+        </ui:define>   
+
+        <ui:define name="menu_moncompte">
+            <li>
+                <a class="dropdown-button" href="#!" data-activates="dropdown-menu-compte">
+                    <h:outputText value="#{lang.LABEL_MODIFIER_COMPTE}"/>&nbsp;<i class="fa fa-caret-down" aria-hidden="true"></i>
+                </a>
+            </li>
+            
+            <ul id="dropdown-menu-compte" class="dropdown-content">
+                <li><h:commandLink value="#{lang.LABEL_MES_INFORMATIONS_PERSONNELLES}" action="edit" immediate="true"/></li>
+                <li><h:commandLink value="#{lang.LABEL_MES_IDENTIFIANTS}" action="edit-id" immediate="true"/></li>
+                <li class="divider"></li>
+                <li><h:commandLink value="#{lang.LABEL_DECONNECTER}" action="#{stagiaireBean.logout}" immediate="true"/></li>
+            </ul>
+        </ui:define>
+        
+        <ui:define name="contenu">           
+            <h:form>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide" warnClass="message info"/>
+                </h:panelGroup>
+                <h:dataTable value="#{listInscriptionsMonCompteBean.inscriptionItems}" 
+                             border="0" cellpadding="5" var="item"
+                             cellspacing="5" rowClasses="row_on,row_off"
+                             rules="all" styleClass="tableau"
+                             binding="#{listInscriptionsMonCompteBean.dataTable}">
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText
+                                value="#{lang.LABEL_DATE_INSCRIPTION}"/>
+                        </f:facet>
+
+                        <h:outputText value="#{item.dateinscription}">
+                            <f:convertDateTime  pattern="dd/MM/yyyy" 
+                                                timeZone="Europe/Paris"/></h:outputText>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_TYPE_FORMATION}">
+                            </h:outputText>
+                        </f:facet>
+                        <h:outputText value="#{item.idsessions1.idtypeformation.nom}"/>
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_CHOIX_PRIORITAIRE}">
+                            </h:outputText>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:outputText value="#{item.idsessions1.titre}"/>
+                            <h:outputText value=" ("/>
+                            <h:outputText value="#{item.etat}" style="font-weight: bold;"/>
+                            <h:outputText value=")"/>
+                        </h:panelGroup>
+                    </h:column>
+
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_CHOIX_SECONDAIRE}">
+                            </h:outputText>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:outputText value="#{item.idsessions2.titre}"/> 
+                            <h:outputText value=" ("/>
+                            <h:outputText value="#{item.etat2}" style="font-weight: bold;"/>
+                            <h:outputText value=")"/>
+                        </h:panelGroup>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_RECAPITULATIF_INSCRIPTION}"/>
+                        </f:facet>
+                        <h:commandLink id="pdfLink" action="#{listInscriptionsMonCompteBean.export}">
+                            <h:graphicImage value="/images/pdf.png"
+                                            style="border:0px;"/>                     
+                        </h:commandLink>
+
+                    </h:column>
+
+                </h:dataTable>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

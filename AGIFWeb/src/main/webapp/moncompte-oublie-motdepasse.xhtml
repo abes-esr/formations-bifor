@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_RETROUVER_MOTDEPASSE}"/>
+        </ui:define>        
+
+
+        <ui:define name="contenu">
+            <h:form id="iFormMdp">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list"  globalOnly="true" errorClass="message erreur" infoClass="message valide"/>
+                </h:panelGroup>
+    
+                <div class="row">
+                    <div class="input-field col s9">
+                        <h:inputText id="mailStagiaire" value="#{oublieMotdepasseBean.mail}" title="Mail du coordinateur" required="true" requiredMessage="#{lang.MSG_MAIL_OBLIGATOIRE}" size="50" maxlength="50" >
+                            <f:validator validatorId="fieldValidator"/>
+                            <f:attribute name="typeValidator" value="mail"/>
+                            <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_MAIL_INVALIDE}"/>
+                        </h:inputText>
+                        <h:outputLabel for="mailStagiaire" value="#{lang.LABEL_VOTRE_MAIL}" />
+                        <h:message for="mailStagiaire" errorClass="message erreur"/>
+                    </div>
+                    <div class="col s3">
+                        <br />
+                    </div>
+                </div>
+
+                <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_RETROUVER}" type="submit" action="#{oublieMotdepasseBean.retrieve}"/>
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_PRECEDENT}" action="back" type="button" immediate="true"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

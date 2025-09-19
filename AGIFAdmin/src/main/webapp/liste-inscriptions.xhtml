@@ -1,0 +1,472 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_SESSIONS}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DETAILS_SESSION}"/>
+        </ui:define>
+        <ui:define name="titre2">
+            <h:outputText value="#{listInscriptionsBean.manageSessions.idtypeformation.nom}"/>
+        </ui:define>
+        
+       
+
+         <ui:define name="scripts">
+            <script type="text/javascript" language="javascript" src="/AGIFAdmin/js/jquery-1.9.1.js"></script>
+            <script type="text/javascript" language="javascript" src="/AGIFAdmin/js/jquery.dataTables.js"></script>        
+            <script type="text/javascript" src="/AGIFAdmin/js/jquery.dataTables.columnFilter.js"></script>
+            <script type="text/javascript" src="/AGIFAdmin/js/Datatable.fnClearFilter.js"></script>
+            <script type="text/javascript" language="javascript" src="/AGIFAdmin/js/jquery.tooltip.js"></script>
+        </ui:define>
+        
+        <ui:define name="contenu">
+              <f:verbatim>          
+                <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/jquery.dataTables.css" />
+                <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/jquery.tooltip.css" />
+                
+                <script type="text/javascript" language="javascript">
+                    var asInitVals = new Array();
+
+                    $(document).ready(function() {
+                        // Si pas de stagiaire, pas de DataTables
+                        if ($('#listeinscriptions tbody tr').length > 1) {
+                        
+	                        $('div.item').tooltip();
+	                        var oTable = $('#listeinscriptions').dataTable({
+	                            "bSortCellsTop": true,
+	                            "iDisplayLength": 100,
+	                            "aaSorting": [[5, "desc"]],
+	                            "bAutoWidth": false,
+	                            "bStateSave": true,
+	                            "sCookiePrefix": "Liste_Inscriptions_DataTable_",
+	                            "iCookieDuration": "session",
+	                            "sPaginationType": "full_numbers",
+	                            "aoColumns": [
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": true},
+	                                {"bSortable": false},
+	                                {"bSortable": false},
+	                                {"bSortable": false},
+	                                {"bSortable": false},
+	                                {"bSortable": false}
+	                            ],
+	                            "oLanguage": {
+	                                "sProcessing": "Chargement...",
+	                                "sLengthMenu": "Afficher _MENU_ entrées",
+	                                "sZeroRecords": "Aucun résultat trouvé",
+	                                "sEmptyTable": "Aucune donnée dans la table",
+	                                "sInfo": "Affiche _START_ à _END_ sur un total de _TOTAL_ entrées",
+	                                "sInfoEmpty": "Affiche 0 entrées sur un total de 0 entrées",
+	                                "sInfoFiltered": "(filtrées sur un total de _MAX_ entrées)",
+	                                "sInfoPostFix": "",
+	                                "sSearch": "Chercher sur toutes les colonnes:",
+	                                "sUrl": "",
+	                                "oPaginate": {
+	                                   "sFirst": "&laquo;",
+	                                    "sPrevious": "&lt;",
+	                                    "sNext": "&gt;",
+	                                    "sLast": "&raquo;"
+	                                },
+	                                "fnInfoCallback": null}
+	                        });
+	                        
+	                        
+	                        $("thead input").keyup(function() {
+	                            /* Filter on the column (the index) of this element */
+	                            //oTable.fnFilter( this.value, $("thead input").index(this) );
+	                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+	                        });
+	                        
+	                        $("thead select").change(function() {
+	                            /* Filter on the column (the index) of this element */
+	                            //if ($(this).prop("selectedIndex")
+	                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+	                        });
+	                        
+	                        /*
+	                         * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+	                         * the footer
+	                         */
+	                        $("thead input").each(function(i) {
+	                            asInitVals[$(this).parent().parent().children('th').index($(this).parent())] = this.value;
+	                        });
+	                        
+	                        $("thead input").focus(function() {
+	                            if (this.className == "search_init")
+	                            {
+	                                this.className = "";
+	                                this.value = "";
+	                            }
+	                        });
+	
+	                        $('#effacer_filtres').click(function() {
+	                            var oTable = $('#listeinscriptions').dataTable();
+	                            oTable.fnFilterClear();
+	                            $("thead input").val("");
+	                            $("thead select").val("");
+	                        });
+	
+	                        $("thead input").blur(function(i) {
+	                            if (this.value == "")
+	                            {
+	                                this.className = "search_init";
+	                                this.value = asInitVals[$("thead input").parent().parent().children('th').index($(this).parent())];
+	                            }
+	                        });
+	                        function fill_search_fields() {
+	                            var oSettings = oTable.fnSettings();
+	                            $("thead input").each(function(i) {
+	                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+	                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+	                                    $(this).removeClass("search_init");
+	                                }
+	                            });
+	                            $("thead select").each(function(i) {
+	                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+	                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+	                                    $(this).removeClass("search_init");
+	                                }
+	                            });
+	                            if (oSettings.oPreviousSearch['sSearch'] != '') {
+	                                $('.search_field').val(oSettings.oPreviousSearch['sSearch']);
+	                            }
+	                        }
+	
+                        	  fill_search_fields();
+                        }
+                        else {
+                            $("#listeinscriptions").hide();
+                        }
+                        
+                    });
+                </script>
+            </f:verbatim>           
+            <h:outputText value="#{param['idsession']}" />
+
+            
+            <h:form prependId="false">
+                 <h:outputLink styleClass="action_datatables" id="effacer_filtres" >
+                    <h:outputText value="#{lang.LABEL_EFFACER_FILTRES}"/>
+                </h:outputLink>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide" warnClass="message info"/>
+                </h:panelGroup>
+                <h:dataTable value="#{listInscriptionsBean.inscriptionItems}"
+                             var="item" 
+                             styleClass="tableau"
+                             headerClass="row_header"
+                             id="listeinscriptions"
+                             binding="#{listInscriptionsBean.dataTable}"
+                             >
+                    <f:facet name="header">
+                        <h:outputText value="#{listInscriptionsBean.manageSessions.intitule}"/>                      
+                    </f:facet>
+          
+                   <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_DATE_INSCRIPTION}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_DATE_INSCRIPTION}" 
+                                       name="search_isncription"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                        <h:outputText value="#{item.dateinscription}">
+                           <f:convertDateTime pattern="dd/MM/yyyy HH:mm"/>
+                        </h:outputText>
+                    </h:column>
+  
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_CHOIX}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_CHOIX}" 
+                                       name="search_choix"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{
+                                      (listInscriptionsBean.manageSessions.idsessions == item.idsessions1.idsessions) ?
+                                          lang.LABEL_PRIORITAIRE : lang.LABEL_SECONDAIRE}"/>
+
+                    </h:column>
+    
+                      <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_STATUT}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_STATUT}" 
+                                       name="search_statut"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{
+                                      (listInscriptionsBean.manageSessions.idsessions == item.idsessions1.idsessions) ?
+                                          item.etat : item.etat2}"
+                                          style="font-weight: bold;"/>
+
+                    </h:column>
+                    
+
+                   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_NOM}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_NOM}" 
+                                       name="search_stagiaire"  class="search_init"/>
+
+                            </f:verbatim>
+                            
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:outputText value="#{item.idstagiaire.prenom}"/>
+                            <h:outputText value="&nbsp;"/>
+                            <h:outputText value="#{item.idstagiaire.nom}"/>
+                        </h:panelGroup>
+                            
+                    </h:column>
+                   
+             
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_ETABLISSEMENT}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_ETABLISSEMENT}" 
+                                       name="search_etablissement"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                         <h:outputText value="#{item.idstagiaire.etablissement}"/>
+                    </h:column>
+                    
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_INFORMATIONS}"/>
+                        </f:facet>
+                        <div class="item">
+                            <h:graphicImage value="/images/Show.png"
+                                            style="border: 0px"/>
+                            
+                            <div style="display:none" class="tooltip_description">
+                            <h:panelGroup> 
+                                <h:panelGrid columns="2">
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_ADRESSE}" />
+                                    <h:outputText value="#{item.idstagiaire.adresse}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CODEPOSTAL}" />
+                                    <h:outputText value="#{item.idstagiaire.codepostal}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_VILLE}" />
+                                    <h:outputText value="#{item.idstagiaire.ville}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_TELEPHONE}" />
+                                    <h:outputText value="#{item.idstagiaire.telephone}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_MAIL}" />
+                                    <h:outputText value="#{item.idstagiaire.mail}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_MAIL_COORDINATEUR}" />
+                                    <h:outputText value="#{item.idstagiaire.mailcoordinateur}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CHOIX_PRIORITAIRE}" />
+                                    <h:outputText value="#{item.idsessions1.titre}"/>
+                                    <h:outputText  styleClass="champ"
+                                                   value="#{lang.LABEL_CHOIX_SECONDAIRE}" />
+                                    <h:outputText value="#{item.idsessions2.titre}"/>
+
+                                </h:panelGrid>
+                                <h:dataTable value="#{item.reponseList}"
+                                             var="reponses" border="0"
+                                             cellpadding="2" cellspacing="2">
+                                    <h:column>
+                                        <h:outputText
+                                            value="#{reponses.idquestion.libellequestion}"
+                                            styleClass="champ"/>
+                                    </h:column>
+                                    <h:column>
+                                        <h:panelGrid columns="2">
+                                            <h:outputText value="#{reponses.choix}"
+                                                          rendered="#{(reponses.idquestion.uniquemultiple
+                                                                      ne lang.VALUE_MULTIPLE)}"/>
+                                            <h:outputText value="#{reponses.specification}"
+                                                          rendered="#{reponses.idquestion.specification}"/>
+                                        </h:panelGrid>
+                                    </h:column>
+                                </h:dataTable>
+                            </h:panelGroup>
+                        </div>
+                            </div>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_MODIFIER}"/>
+                        </f:facet>
+                        <h:commandLink action="#{listInscriptionsBean.modify}">
+                            <h:graphicImage value="/images/edit_1.png"
+                                            style="border: 0px"/>
+                        </h:commandLink>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_VALIDER}"/>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:commandLink
+                                onclick="if (!confirm('#{lang.MSG_CONFIRM_VALIDER}'))
+                                return false"
+                                action="#{listInscriptionsBean.valid}"
+                                rendered="#{((item.etat ne lang.LABEL_VALIDE)
+                                            and (item.etat2 ne lang.LABEL_VALIDE))}">
+                                <h:graphicImage   value="/images/check.png"
+                                                  style="border: 0px"
+
+                                                  />
+                            </h:commandLink>
+                            <h:graphicImage   value="/images/check_no.png"
+                                              style="border: 0px"
+                                              rendered="#{not((item.etat ne lang.LABEL_VALIDE)
+                                                          and (item.etat2 ne lang.LABEL_VALIDE))}"/>
+
+                        </h:panelGroup>
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_REFUSER}"/>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:commandLink
+                                onclick="if (!confirm('#{lang.MSG_CONFIRM_REFUSER}'))
+                                return false"
+                                action="#{listInscriptionsBean.refuse}"
+                                 rendered="#{((item.etat ne lang.LABEL_REFUSE)
+                                            and (item.etat2 ne lang.LABEL_REFUSE))}">
+                                <h:graphicImage  value="/images/busy.png"
+                                                 style="border: 0px"/>
+                            </h:commandLink>
+                            <h:graphicImage   value="/images/busy_no.png"
+                                              style="border: 0px"
+                                              rendered="#{not((item.etat ne lang.LABEL_REFUSE)
+                                                          and (item.etat2 ne lang.LABEL_REFUSE))}"/>
+                        </h:panelGroup>
+                    </h:column> 
+                    
+                     <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_SUPPRIMER}"/>
+                        </f:facet>
+                        <h:panelGroup>
+                            <h:commandLink
+                                onclick="if (!confirm('#{lang.MSG_CONFIRM_SUPPRIMER}'))
+                                return false"
+                                action="#{listInscriptionsBean.delete}">
+                                <h:graphicImage  value="/images/delete.png"
+                                                 style="border: 0px"/>
+                            </h:commandLink>
+                         </h:panelGroup>
+                    </h:column>   
+                  
+                </h:dataTable>
+
+                <h:panelGrid columns="2">
+                    <h:outputText value="#{lang.LABEL_PLACES_DISPONIBLES}"/>
+                    <h:outputText value="#{listInscriptionsBean.nbPlacesDisponibles}"/>
+                    <h:outputText value="#{lang.LABEL_EDITER}"/>
+                    <h:panelGroup>
+                        <h:panelGrid columns="2">
+                            <h:commandLink action="#{listInscriptionsBean.edit}">
+                                <h:graphicImage  value="/images/email.png"
+                                                 style="border: 0px"/>
+                            </h:commandLink>
+                            <h:panelGrid columns="2"
+                                         rendered="#{not empty listInscriptionsBean.manageSessions.dateconfirmation}">
+                                <h:outputText value="#{lang.LABEL_DATE_ENVOI_CONFIRMATION}" style="font-style: italic;"/>
+                                <h:outputText value="#{listInscriptionsBean.manageSessions.dateconfirmation}">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </h:panelGroup>
+                   
+                    <h:outputText value="#{lang.LABEL_GENERER}"/>
+                    <h:commandLink
+                        onclick="if (!confirm('#{lang.MSG_CONFIRM_GENERER}'))
+                                return false"
+                        action="#{listInscriptionsBean.generate}">
+                        <h:graphicImage  value="/images/finished-work.png"
+                                         style="border: 0px"/>
+                    </h:commandLink>
+                     <h:outputText value="#{lang.LABEL_EXPORTER}"/>
+                    <h:commandLink
+                        onclick="if (!confirm('#{lang.MSG_CONFIRM_EXPORTER}'))
+                                return false"
+                                action="#{listInscriptionsBean.export}">
+                        <h:graphicImage  value="/images/export.png"
+                                         style="border: 0px"/>
+                    </h:commandLink>
+                     
+                    <h:outputText value="#{lang.LABEL_TERMINER}"
+                                  style="font-weight: bold;"/>
+                    <h:commandLink
+                        onclick="if (!confirm('#{lang.MSG_CONFIRM_CLOTURER}'))
+                                return false"
+                        action="#{listInscriptionsBean.close}">
+                        <h:graphicImage  value="/images/sign-out.png"
+                                         style="border: 0px"/>
+                    </h:commandLink>
+                    
+                    
+                     
+                </h:panelGrid>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+
+                <h:panelGrid columns="2">
+                    <h:panelGroup/>
+                    <h:outputText value="#{lang.LABEL_DOCUMENTS_GENERES}" styleClass="sous_titre" />
+                    
+                    <h:graphicImage value="/images/document-library.png" style="border: 0px" rendered="#{not empty listInscriptionsBean.manageSessions.emargement.path}"/>
+                    <h:outputLink value="#{listInscriptionsBean.manageSessions.linkEmargement}" rendered="#{not empty listInscriptionsBean.manageSessions.emargement.path}">
+                    	<h:outputText value="#{lang.LABEL_EMARGEMENT}"/>
+                    </h:outputLink>
+                    
+                    <h:graphicImage value="/images/attibutes.png" style="border: 0px" rendered="#{not empty listInscriptionsBean.manageSessions.attestation.path}"/>
+                    <h:outputLink value="#{listInscriptionsBean.manageSessions.linkAttestation}" rendered="#{not empty listInscriptionsBean.manageSessions.attestation.path}">
+						<h:outputText value="#{lang.LABEL_ATTESTATION}"/>
+					</h:outputLink>
+                    
+                    <h:graphicImage value="/images/administrative-docs.png" style="border: 0px" rendered="#{not empty listInscriptionsBean.manageSessions.listeStagiaires.path}"/>
+                    <h:outputLink value="#{listInscriptionsBean.manageSessions.linklisteStagiaires}" rendered="#{not empty listInscriptionsBean.manageSessions.listeStagiaires.path}">
+						<h:outputText value="#{lang.LABEL_LISTE_STAGIAIRES}"/>
+					</h:outputLink>
+                    
+                    <h:graphicImage value="/images/hire-me.png" style="border: 0px" rendered="#{not empty listInscriptionsBean.manageSessions.chevalets.path}"/>
+                    <h:outputLink value="#{listInscriptionsBean.manageSessions.linkChevalets}" rendered="#{not empty listInscriptionsBean.manageSessions.chevalets.path}">
+						<h:outputText value="#{lang.LABEL_CHEVALETS}"/>
+					</h:outputLink>
+                </h:panelGrid>
+                <h:commandButton value="#{lang.LABEL_LISTE_SESSIONS}" action="#{listInscriptionsBean.back}"/>
+            </h:form>
+            <br/>
+            <br/>
+
+        </ui:define>
+    </ui:composition>
+</html>
+
+

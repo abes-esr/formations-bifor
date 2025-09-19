@@ -1,0 +1,178 @@
+/* CSS Document */
+/* Elements HTML */
+body{
+    background: #ece9d8 repeat-x top left;
+    text-align : center;
+    font-family:"Arial";
+    font-size:11px;
+    height: 80%;
+    margin: 0;
+}
+
+html {
+    height: 80%;
+}
+
+p , div {
+    text-align:justify;
+}
+
+h1 {
+    font-size:24px;
+    font-weight:bold;
+    color:#2b78cc;
+    padding:0px 30px;
+    text-transform:uppercase;
+    background: url(../images/titre1.gif) no-repeat left;
+}
+h2 {
+    font-weight:bold;
+    font-size:18px;
+    padding:0px;
+    margin:0px;
+    color:#ef5627;
+}
+/* Elements des tableaux de donn�es */
+.tableau {
+    border : solid 1px #2b3b4c;
+    font-size:11px;
+}
+.tableau a{
+    color:red;
+    text-decoration :none;
+}
+.tableau a:hover{
+    color:red;
+    text-decoration :underline;
+}
+.th {
+    text-transform:capitalize;
+    text-decoration:underline;
+    font-size:12px;
+    font-weight:bold;
+    background-color:#c7d7f8;
+}
+.center{
+    text-align:center;
+}
+
+.row_header{
+    background-color:#FFFFFF;
+}
+
+.row_off {
+    background-color:#e9ecf4;
+
+}
+
+.row_on{
+    background-color:#cbd7ef;
+}
+
+.row_off {
+    background-color:#e9ecf4;
+
+}
+
+/* Elements des formulaires */
+.formulaire {
+    border : solid 1px #c0c0c0;
+    font-size:11px;
+    border-spacing: 0px;
+border-collapse: collapse; 
+}
+.formulaire a{
+    color:red;
+    text-decoration :none;
+}
+
+.formulaire a:hover{
+    color:red;
+    text-decoration :underline;
+}
+
+.formulaire td {
+    background-color:#ecf4fe;
+    border: solid 1px #c0c0c0;
+}
+
+
+.champ {
+    font-weight:bold;
+    padding:0px 20px;
+}
+
+.obligatoire {
+    background: url(../images/obligatoire.gif) no-repeat left;
+}
+
+.bouton {
+    background: transparent url(../images/bouton.png) no-repeat right ;
+    font-weight:bold;
+    font-size:11px;
+    padding:20px;
+    margin:0px;
+    text-decoration:none;
+    text-align:center;
+}
+.bouton a:hover {
+    text-decoration:underline;
+}
+
+
+select, option, input, textarea,checkbox
+{
+    margin:5px;
+    color:#000000;
+    text-decoration: none;
+    font-family:"Trebuchet MS";
+    font-size:11px;
+    border : solid 1px #2b3b4c;
+}
+
+/* Element des messages del'application*/
+.message {
+    font-weight:bold;
+    padding:5px 20px;
+}
+.erreur {
+    color:#cf1a0d;
+    background: url(../images/erreur.png) no-repeat left;
+}
+
+.info {
+    color:#e57e1a;
+    background: url(../images/info.png) no-repeat left;
+}
+
+.valide {
+    color:#3d7e26;
+    background: url(../images/valide.png) no-repeat left;
+}
+.en_cours {
+    font-weight:bold;
+    font-size:18px;
+    padding:0px;
+    margin:0px;
+    color:#000000;
+}
+
+.sous_titre {
+    font-weight:bold;
+    font-size:14px;
+    padding:0px;
+    margin:0px;
+    color:#000000;
+}
+
+.rich-calendar-popup {
+    background-color: #FFFFFF;
+}
+.actualiser {
+     color:#3d7e26;
+}
+
+.erreur_sans_stagiaire {
+	text-align: center;
+	margin: 30px;
+}

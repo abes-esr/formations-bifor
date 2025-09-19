@@ -1,0 +1,54 @@
+/** NAVBAR **/
+nav img {
+	height: 60px;
+}
+
+nav img {
+	padding-top: 10px;
+}
+
+/** COLORS **/
+.bifor-blue {
+	background-color: #1f2c63 !important;
+}
+
+.bifor-blue-text {
+	color: #1f2c63 !important;
+}
+
+/** Element des messages del'application **/
+.message {
+    font-weight:bold;
+    padding:5px 20px;
+}
+.erreur {
+    color:#cf1a0d;   
+    background: url(../images/erreur.png) no-repeat left;
+}
+
+.info {
+    color:#e57e1a;    
+    background: url(../images/info.png) no-repeat left;
+}
+
+.valide {
+    color:#3d7e26;    
+    background: url(../images/valide.png) no-repeat left;
+}
+
+/** AUTRES **/
+.padding-right150 {
+	padding-right: 150px;
+}
+
+p {
+    text-align:justify;    
+}
+
+div[rendered=false] {
+    display: none;
+}
+
+.preformatted {
+    white-space: pre-wrap;
+}

@@ -1,0 +1,402 @@
+* text=auto !eol
+0[!!-~]-[!!-~]SQL/InsertRandomResponse.sql -text
+0[!!-~]-[!!-~]SQL/UpdateTestData.sql -text
+AGIFAdmin/pom.xml -text svneol=unset#text/plain
+AGIFAdmin/src/main/java/org/formation/servlet/ChangeAffectationServlet.java -text
+AGIFAdmin/src/main/java/org/formation/servlet/FormationServletListener.java -text
+AGIFAdmin/src/main/java/org/formation/servlet/ListInscriptionServlet.java -text
+AGIFAdmin/src/main/java/org/formation/servlet/ValidInscriptionServlet.java -text
+AGIFAdmin/src/main/java/org/formation/web/ConfirmInscriptionBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditFormateurBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditFormationBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditInscriptionBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditLieuBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditQuestionBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditSessionsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/EditStagiaireBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/FieldValidator.java -text
+AGIFAdmin/src/main/java/org/formation/web/IndexBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListFormateursBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListFormationsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListInscriptionsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListLieuxBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListQuestionsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListSessionBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListSessionsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ListStagiairesBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ManageSessionsBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/SessionsSortingFilteringBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/TemplateBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/ValidInscriptionBean.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/BufferedRW.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/File.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/FormateurConverter.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/LieuConverter.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/ManageSessions.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/Questions.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/Reponses.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/SessionsConverter.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/StatutConverter.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/TypeFormationConverter.java -text
+AGIFAdmin/src/main/java/org/formation/web/components/TypeSessionConverter.java -text
+AGIFAdmin/src/main/resources/org/formation/ressources/MessagesLibelles.properties -text svneol=unset#text/plain
+AGIFAdmin/src/main/resources/org/formation/ressources/MessagesValidation.properties -text svneol=unset#text/plain
+AGIFAdmin/src/main/webapp/META-INF/context.xml -text
+AGIFAdmin/src/main/webapp/WEB-INF/faces-config.xml -text
+AGIFAdmin/src/main/webapp/WEB-INF/web.xml -text
+AGIFAdmin/src/main/webapp/cgu.xhtml -text svneol=unset#text/plain
+AGIFAdmin/src/main/webapp/confirm-inscription.xhtml -text
+AGIFAdmin/src/main/webapp/css/cssmenu.css -text
+AGIFAdmin/src/main/webapp/css/jquery.dataTables.css -text
+AGIFAdmin/src/main/webapp/css/jquery.tooltip.css -text
+AGIFAdmin/src/main/webapp/css/layout.css -text
+AGIFAdmin/src/main/webapp/css/redmond/images/animated-overlay.gif -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_flat_0_aaaaaa_40x100.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_flat_55_fbec88_40x100.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_glass_75_d0e5f5_1x400.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_glass_85_dfeffc_1x400.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_glass_95_fef1ec_1x400.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_gloss-wave_55_5c9ccc_500x100.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_inset-hard_100_f5f8f9_1x100.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-bg_inset-hard_100_fcfdfd_1x100.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_217bc0_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_2e83ff_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_469bdd_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_6da8d5_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_cd0a0a_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_d8e7f3_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/images/ui-icons_f9bd01_256x240.png -text
+AGIFAdmin/src/main/webapp/css/redmond/jquery-ui-1.10.3.custom.css -text
+AGIFAdmin/src/main/webapp/css/redmond/jquery-ui-1.10.3.custom.min.css -text
+AGIFAdmin/src/main/webapp/css/style.css -text
+AGIFAdmin/src/main/webapp/documents/DocumentsFormation.xml -text svneol=unset#text/plain
+AGIFAdmin/src/main/webapp/documents/formations/etablissements_star.csv -text
+AGIFAdmin/src/main/webapp/documents/modeles/attestation.rtf -text
+AGIFAdmin/src/main/webapp/documents/modeles/chevalets.rtf -text
+AGIFAdmin/src/main/webapp/documents/modeles/convocation.docx -text
+AGIFAdmin/src/main/webapp/documents/modeles/convocation_save_20161116.docx -text
+AGIFAdmin/src/main/webapp/documents/modeles/emargement.rtf -text
+AGIFAdmin/src/main/webapp/documents/modeles/liste_stagiaires.rtf -text
+AGIFAdmin/src/main/webapp/donnees_personnelles.xhtml -text svneol=unset#text/plain
+AGIFAdmin/src/main/webapp/edit-formateur.xhtml -text
+AGIFAdmin/src/main/webapp/edit-formation.xhtml -text
+AGIFAdmin/src/main/webapp/edit-inscription.xhtml -text
+AGIFAdmin/src/main/webapp/edit-lieu.xhtml -text
+AGIFAdmin/src/main/webapp/edit-question.xhtml -text
+AGIFAdmin/src/main/webapp/edit-sessions.xhtml -text
+AGIFAdmin/src/main/webapp/edit-stagiaire.xhtml -text
+AGIFAdmin/src/main/webapp/images/Backend.png -text
+AGIFAdmin/src/main/webapp/images/Destroy.png -text
+AGIFAdmin/src/main/webapp/images/Edit.png -text
+AGIFAdmin/src/main/webapp/images/Frontend.png -text
+AGIFAdmin/src/main/webapp/images/Show.png -text
+AGIFAdmin/src/main/webapp/images/Thumbs.db -text
+AGIFAdmin/src/main/webapp/images/abes_banniere.gif -text
+AGIFAdmin/src/main/webapp/images/abes_banniere_site.gif -text
+AGIFAdmin/src/main/webapp/images/abes_logo.gif -text
+AGIFAdmin/src/main/webapp/images/address.png -text
+AGIFAdmin/src/main/webapp/images/administrative-docs.png -text
+AGIFAdmin/src/main/webapp/images/advertising.png -text
+AGIFAdmin/src/main/webapp/images/archives.png -text
+AGIFAdmin/src/main/webapp/images/archives_no.png -text
+AGIFAdmin/src/main/webapp/images/attibutes.png -text
+AGIFAdmin/src/main/webapp/images/bank.png -text
+AGIFAdmin/src/main/webapp/images/bank_no.png -text
+AGIFAdmin/src/main/webapp/images/basket.png -text
+AGIFAdmin/src/main/webapp/images/bestseller.png -text
+AGIFAdmin/src/main/webapp/images/billing.png -text
+AGIFAdmin/src/main/webapp/images/bookmark.png -text
+AGIFAdmin/src/main/webapp/images/bouton.gif -text
+AGIFAdmin/src/main/webapp/images/bouton.png -text
+AGIFAdmin/src/main/webapp/images/brainstorming.png -text
+AGIFAdmin/src/main/webapp/images/business-contact.png -text
+AGIFAdmin/src/main/webapp/images/busy.png -text
+AGIFAdmin/src/main/webapp/images/busy_no.png -text
+AGIFAdmin/src/main/webapp/images/calendar.png -text
+AGIFAdmin/src/main/webapp/images/category.png -text
+AGIFAdmin/src/main/webapp/images/check.png -text
+AGIFAdmin/src/main/webapp/images/check_no.png -text
+AGIFAdmin/src/main/webapp/images/collaboration.png -text
+AGIFAdmin/src/main/webapp/images/comment.png -text
+AGIFAdmin/src/main/webapp/images/communication.png -text
+AGIFAdmin/src/main/webapp/images/config.png -text
+AGIFAdmin/src/main/webapp/images/consulting.png -text
+AGIFAdmin/src/main/webapp/images/contact.png -text
+AGIFAdmin/src/main/webapp/images/cost.png -text
+AGIFAdmin/src/main/webapp/images/credit-card.png -text
+AGIFAdmin/src/main/webapp/images/credit.png -text
+AGIFAdmin/src/main/webapp/images/current-work.png -text
+AGIFAdmin/src/main/webapp/images/customers.png -text
+AGIFAdmin/src/main/webapp/images/cv.png -text
+AGIFAdmin/src/main/webapp/images/database.png -text
+AGIFAdmin/src/main/webapp/images/date.png -text
+AGIFAdmin/src/main/webapp/images/delete.png -text
+AGIFAdmin/src/main/webapp/images/delete_no.png -text
+AGIFAdmin/src/main/webapp/images/delicious.png -text
+AGIFAdmin/src/main/webapp/images/document-library.png -text
+AGIFAdmin/src/main/webapp/images/donate.png -text
+AGIFAdmin/src/main/webapp/images/drawings.png -text
+AGIFAdmin/src/main/webapp/images/edit_1.png -text
+AGIFAdmin/src/main/webapp/images/email.png -text
+AGIFAdmin/src/main/webapp/images/erreur.png -text
+AGIFAdmin/src/main/webapp/images/export-csv.png -text
+AGIFAdmin/src/main/webapp/images/export.png -text
+AGIFAdmin/src/main/webapp/images/favicon.ico -text
+AGIFAdmin/src/main/webapp/images/featured.png -text
+AGIFAdmin/src/main/webapp/images/feed.png -text
+AGIFAdmin/src/main/webapp/images/finished-work.png -text
+AGIFAdmin/src/main/webapp/images/flag.png -text
+AGIFAdmin/src/main/webapp/images/folder.png -text
+AGIFAdmin/src/main/webapp/images/free-for-job.png -text
+AGIFAdmin/src/main/webapp/images/freelance.png -text
+AGIFAdmin/src/main/webapp/images/full-time.png -text
+AGIFAdmin/src/main/webapp/images/future-projects.png -text
+AGIFAdmin/src/main/webapp/images/graphic-design.png -text
+AGIFAdmin/src/main/webapp/images/heart.png -text
+AGIFAdmin/src/main/webapp/images/hire-me.png -text
+AGIFAdmin/src/main/webapp/images/home.png -text
+AGIFAdmin/src/main/webapp/images/illustration.png -text
+AGIFAdmin/src/main/webapp/images/info.png -text
+AGIFAdmin/src/main/webapp/images/invoice.png -text
+AGIFAdmin/src/main/webapp/images/issue.png -text
+AGIFAdmin/src/main/webapp/images/lgabesgd.gif -text
+AGIFAdmin/src/main/webapp/images/library.png -text
+AGIFAdmin/src/main/webapp/images/lightbulb.png -text
+AGIFAdmin/src/main/webapp/images/limited-edition.png -text
+AGIFAdmin/src/main/webapp/images/link.png -text
+AGIFAdmin/src/main/webapp/images/lock.png -text
+AGIFAdmin/src/main/webapp/images/login.png -text
+AGIFAdmin/src/main/webapp/images/logo-ABES.png -text
+AGIFAdmin/src/main/webapp/images/logout.png -text
+AGIFAdmin/src/main/webapp/images/milestone.png -text
+AGIFAdmin/src/main/webapp/images/my-account.png -text
+AGIFAdmin/src/main/webapp/images/networking.png -text
+AGIFAdmin/src/main/webapp/images/obligatoire.gif -text
+AGIFAdmin/src/main/webapp/images/obligatoire.png -text
+AGIFAdmin/src/main/webapp/images/old-versions.png -text
+AGIFAdmin/src/main/webapp/images/order-1.png -text
+AGIFAdmin/src/main/webapp/images/order.png -text
+AGIFAdmin/src/main/webapp/images/payment-card.png -text
+AGIFAdmin/src/main/webapp/images/paypal.png -text
+AGIFAdmin/src/main/webapp/images/pen.png -text
+AGIFAdmin/src/main/webapp/images/pencil.png -text
+AGIFAdmin/src/main/webapp/images/phone.png -text
+AGIFAdmin/src/main/webapp/images/photography.png -text
+AGIFAdmin/src/main/webapp/images/plus.png -text
+AGIFAdmin/src/main/webapp/images/premium.png -text
+AGIFAdmin/src/main/webapp/images/print.png -text
+AGIFAdmin/src/main/webapp/images/process.png -text
+AGIFAdmin/src/main/webapp/images/product-1.png -text
+AGIFAdmin/src/main/webapp/images/product-design.png -text
+AGIFAdmin/src/main/webapp/images/product.png -text
+AGIFAdmin/src/main/webapp/images/project.png -text
+AGIFAdmin/src/main/webapp/images/publish.png -text
+AGIFAdmin/src/main/webapp/images/refresh.png -text
+AGIFAdmin/src/main/webapp/images/search.png -text
+AGIFAdmin/src/main/webapp/images/search_1.png -text
+AGIFAdmin/src/main/webapp/images/settings.png -text
+AGIFAdmin/src/main/webapp/images/shipping.png -text
+AGIFAdmin/src/main/webapp/images/showreel.png -text
+AGIFAdmin/src/main/webapp/images/sign-in.png -text
+AGIFAdmin/src/main/webapp/images/sign-out.png -text
+AGIFAdmin/src/main/webapp/images/sign-up.png -text
+AGIFAdmin/src/main/webapp/images/sitemap.png -text
+AGIFAdmin/src/main/webapp/images/sort_asc.png -text
+AGIFAdmin/src/main/webapp/images/sort_both.png -text
+AGIFAdmin/src/main/webapp/images/sort_desc.png -text
+AGIFAdmin/src/main/webapp/images/special-offer.png -text
+AGIFAdmin/src/main/webapp/images/star.png -text
+AGIFAdmin/src/main/webapp/images/statistics.png -text
+AGIFAdmin/src/main/webapp/images/suppliers.png -text
+AGIFAdmin/src/main/webapp/images/tag.png -text
+AGIFAdmin/src/main/webapp/images/ticket.png -text
+AGIFAdmin/src/main/webapp/images/titre1.gif -text
+AGIFAdmin/src/main/webapp/images/twitter.png -text
+AGIFAdmin/src/main/webapp/images/upcoming-work.png -text
+AGIFAdmin/src/main/webapp/images/user.png -text
+AGIFAdmin/src/main/webapp/images/valide.png -text
+AGIFAdmin/src/main/webapp/images/world.png -text
+AGIFAdmin/src/main/webapp/images/zoom.png -text
+AGIFAdmin/src/main/webapp/index.xhtml -text
+AGIFAdmin/src/main/webapp/js/Datatable.fnClearFilter.js -text
+AGIFAdmin/src/main/webapp/js/datatable.sessions.js -text
+AGIFAdmin/src/main/webapp/js/jquery-1.9.1.js -text
+AGIFAdmin/src/main/webapp/js/jquery-ui-1.10.3.custom.js -text
+AGIFAdmin/src/main/webapp/js/jquery-ui-1.10.3.custom.min.js -text
+AGIFAdmin/src/main/webapp/js/jquery.dataTables.columnFilter.js -text
+AGIFAdmin/src/main/webapp/js/jquery.dataTables.js -text
+AGIFAdmin/src/main/webapp/js/jquery.js -text
+AGIFAdmin/src/main/webapp/js/jquery.tooltip.js -text
+AGIFAdmin/src/main/webapp/liste-formateurs.xhtml -text
+AGIFAdmin/src/main/webapp/liste-formations.xhtml -text
+AGIFAdmin/src/main/webapp/liste-inscriptions.xhtml -text
+AGIFAdmin/src/main/webapp/liste-lieux.xhtml -text
+AGIFAdmin/src/main/webapp/liste-questions.xhtml -text
+AGIFAdmin/src/main/webapp/liste-session.xhtml -text
+AGIFAdmin/src/main/webapp/liste-sessions.xhtml -text
+AGIFAdmin/src/main/webapp/liste-stagiaires.xhtml -text
+AGIFAdmin/src/main/webapp/mentions_legales.xhtml -text svneol=unset#text/plain
+AGIFAdmin/src/main/webapp/template.xhtml -text
+AGIFAdmin/src/main/webapp/valide-inscriptions.xhtml -text
+AGIFBatch/pom.xml -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/WebStatsExport.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/export/Export.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/correspondence/FormationQuestions.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/correspondence/FormationStatus.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/correspondence/FormationType.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/correspondence/InscriptionStatus.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/statsgeneral/NbHeures.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/statsgeneral/NbJours.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/statsgeneral/NbStagiaires.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/statsspecifics/Etablissement.java -text svneol=unset#text/plain
+AGIFBatch/src/main/java/org/formation/batch/webstats/export/statsspecifics/Responses.java -text svneol=unset#text/plain
+AGIFDocument/pom.xml -text svneol=unset#text/plain
+AGIFDocument/src/main/java/org/formation/writer/AgifWriter.java -text
+AGIFDocument/src/main/java/org/formation/writer/impl/AgifWriterImpl.java -text
+AGIFDocument/src/main/java/org/formation/writer/model/StagiaireColonne.java -text
+AGIFService/pom.xml -text svneol=unset#text/plain
+AGIFService/src/main/java/META-INF/MANIFEST.MF -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/constant/Constant.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/EtablissementDao.java -text
+AGIFService/src/main/java/org/formation/dao/FormateurDao.java -text
+AGIFService/src/main/java/org/formation/dao/InscriptionDao.java -text
+AGIFService/src/main/java/org/formation/dao/LieuDao.java -text
+AGIFService/src/main/java/org/formation/dao/QuestionDao.java -text
+AGIFService/src/main/java/org/formation/dao/ReponseDao.java -text
+AGIFService/src/main/java/org/formation/dao/SessionsDao.java -text
+AGIFService/src/main/java/org/formation/dao/StagiaireDao.java -text
+AGIFService/src/main/java/org/formation/dao/StatutDao.java -text
+AGIFService/src/main/java/org/formation/dao/TypeFormationDao.java -text
+AGIFService/src/main/java/org/formation/dao/TypeSessionDao.java -text
+AGIFService/src/main/java/org/formation/dao/impl/AbstractDao.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/EtablissementDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/FormateurDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/InscriptionDaoImpl.java -text
+AGIFService/src/main/java/org/formation/dao/impl/LieuDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/QuestionDaoImpl.java -text
+AGIFService/src/main/java/org/formation/dao/impl/ReponseDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/SessionsDaoImpl.java -text
+AGIFService/src/main/java/org/formation/dao/impl/StagiaireDaoImpl.java -text
+AGIFService/src/main/java/org/formation/dao/impl/StatutDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/TypeFormationDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/dao/impl/TypeSessionDaoImpl.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/mail/AgifMail.java -text
+AGIFService/src/main/java/org/formation/mail/Convocation.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/mail/DocxToPDF.java -text svneol=unset#text/plain
+AGIFService/src/main/java/org/formation/model/Etablissement.java -text
+AGIFService/src/main/java/org/formation/model/Formateur.java -text
+AGIFService/src/main/java/org/formation/model/Inscription.java -text
+AGIFService/src/main/java/org/formation/model/Lieu.java -text
+AGIFService/src/main/java/org/formation/model/Question.java -text
+AGIFService/src/main/java/org/formation/model/Reponse.java -text
+AGIFService/src/main/java/org/formation/model/Sessions.java -text
+AGIFService/src/main/java/org/formation/model/Stagiaire.java -text
+AGIFService/src/main/java/org/formation/model/Statut.java -text
+AGIFService/src/main/java/org/formation/model/TypeFormation.java -text
+AGIFService/src/main/java/org/formation/model/TypeSession.java -text
+AGIFService/src/main/java/org/formation/path/PathFile.java -text
+AGIFService/src/main/java/org/formation/service/AgifManageService.java -text
+AGIFService/src/main/java/org/formation/service/AgifService.java -text
+AGIFService/src/main/java/org/formation/service/impl/AgifManageServiceImpl.java -text
+AGIFService/src/main/java/org/formation/service/impl/AgifServiceImpl.java -text
+AGIFService/src/main/java/org/formation/tools/Encryption.java -text
+AGIFService/src/main/resources/log4j.xml -text svneol=unset#text/plain
+AGIFService/src/test/java/org/formation/constant/ConstantTest.java -text svneol=unset#text/plain
+AGIFWeb/pom.xml -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/servlet/FormationServletListener.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/servlet/IE9CompatablityFixServlet.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/AbstractBackingBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/ConnexionMonCompteBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/ConnexionStagiaireBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/DemandeBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/DemandeFormationBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/EditIdentifiantsMonCompteBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/EditInformationsMonCompteBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/FieldValidator.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/IndexBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/IndexBeanConnexion.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/IndexBeanInscription.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/InscriptionQuestionsBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/InscriptionSessionsBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/InscriptionStagiaireBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/InscriptionValidationBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/ListFormationsBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/ListInscriptionsMonCompteBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/OublieMotdepasseBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/OublieMotdepasseMonCompteBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/StagiaireBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/TemplateBean.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/components/BufferedRW.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/components/EtablissementConverter.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/components/Questions.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/components/Reponses.java -text svneol=unset#text/plain
+AGIFWeb/src/main/java/org/formation/web/components/SessionsConverter.java -text svneol=unset#text/plain
+AGIFWeb/src/main/resources/org/formation/ressources/MessagesLibelles.properties -text svneol=unset#text/plain
+AGIFWeb/src/main/resources/org/formation/ressources/MessagesValidation.properties -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/META-INF/context.xml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/WEB-INF/faces-config.xml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/WEB-INF/web.xml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/cgu.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/connexion-stagiaire.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/css/env.css -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/css/general.css -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/css/rf-cal.css -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/demande-formation.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/donnees_personnelles.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/erreur.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/home.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/images/abes_logo.gif -text
+AGIFWeb/src/main/webapp/images/customers.png -text
+AGIFWeb/src/main/webapp/images/erreur.png -text
+AGIFWeb/src/main/webapp/images/favicon.ico -text
+AGIFWeb/src/main/webapp/images/info.png -text
+AGIFWeb/src/main/webapp/images/logo-ABES.png -text
+AGIFWeb/src/main/webapp/images/pdf.png -text
+AGIFWeb/src/main/webapp/images/psd/logo-ABES.psd -text
+AGIFWeb/src/main/webapp/images/slider_1.jpg -text
+AGIFWeb/src/main/webapp/images/slider_2.jpg -text
+AGIFWeb/src/main/webapp/images/slider_3.jpg -text
+AGIFWeb/src/main/webapp/images/valide.png -text
+AGIFWeb/src/main/webapp/index.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-nok.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-ok.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-questions.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-sessions.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-stagiaire.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription-validation.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/inscription.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/js/init.js -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/js/packed.js -text svneol=unset#application/octet-stream
+AGIFWeb/src/main/webapp/js/piwik.js -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/liste-formations.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/mentions_legales.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-connexion.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-edit-identifiants.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-edit-stagiaire.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-liste-inscriptions.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-motdepasse-retrouve.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/moncompte-oublie-motdepasse.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/motdepasse-retrouve.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/oublie-motdepasse.xhtml -text svneol=unset#text/plain
+AGIFWeb/src/main/webapp/template.xhtml -text svneol=unset#text/plain
+/pom.xml -text svneol=unset#text/plain
+puppet/dev.pp -text
+puppet/modules/app_bifor/files/cron_sh/BiforWebstats.sh -text
+puppet/modules/app_bifor/files/htaccess/htaccess.admin.conf -text
+puppet/modules/app_bifor/files/htaccess/htaccess.web.conf -text
+puppet/modules/app_bifor/files/htaccess/htpasswd.admin.conf -text
+puppet/modules/app_bifor/files/htaccess/index.html -text svneol=unset#text/plain
+puppet/modules/app_bifor/files/htaccess/readme.txt -text svneol=unset#text/plain
+puppet/modules/app_bifor/manifests/batch/cron.pp -text
+puppet/modules/app_bifor/manifests/batch/jar.pp -text
+puppet/modules/app_bifor/manifests/web/htaccess.pp -text
+puppet/modules/app_bifor/manifests/web/war.pp -text
+puppet/modules/app_bifor/templates/war/DocumentsFormation.xml -text svneol=unset#text/plain
+puppet/modules/artifactory/Modulefile -text
+puppet/modules/artifactory/README.md -text
+puppet/modules/artifactory/files/download-artifact-from-artifactory.sh -text
+puppet/modules/artifactory/manifests/artifact.pp -text
+puppet/modules/artifactory/manifests/init.pp -text
+puppet/modules/artifactory/spec/spec_helper.rb -text
+puppet/modules/artifactory/tests/init.pp -text
+puppet/test.pp -text

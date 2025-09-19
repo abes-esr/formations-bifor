@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Context docBase="/applis/bifor">
+        <!-- Entree pour servir le contenu statique pour les exports de formation -->
+        <!-- Ce fichier est à déposer les machines dans le tomcat sous "conf/Catalina/localhost/" -->
+        <!-- Il permet de gérer et de distribuer les fichiers générés -->
+</Context>

@@ -1,0 +1,490 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="etape">
+            <div class="chip">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Choix de la session
+            </div>
+            <div class="chip bifor-blue white-text">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Inscription
+            </div>
+            <div class="chip">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                Renseignement complémentaire
+            </div>
+            <div class="chip">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Confirmation
+            </div>
+        </ui:define>
+
+        <ui:define name="utilisateur">
+            <div class="chip" rendered="#{demande.estConnecte}">
+                <i class="fa fa-user"></i>&nbsp;
+                <h:outputText value="#{lang.LABEL_BIENVENUE}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.prenom}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.nom}"/>
+            </div>
+        </ui:define>
+
+        <ui:define name="encours">
+            <ul>
+                <li><h:outputText value="#{lang.LABEL_NOM_FORMATION}" /><b><h:outputText value="#{demande.typeFormation.nom}"/></b></li>
+                <li><b><h:outputText value="#{lang.LABEL_CHOIX_PRIORITAIRE}" /></b>: <h:outputText value="#{demande.choixPrioritaire.titre}"/></li>
+                <li><b><h:outputText value="#{lang.LABEL_CHOIX_SECONDAIRE}" /></b>: <h:outputText value="#{demande.choixSecondaire.titre}"/></li>
+            </ul>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_ETAPE2_INSCRIPTION}"/>
+        </ui:define>
+
+        <ui:define name="contenu">
+            <h:form id="iForm">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list"  globalOnly="true" errorClass="message erreur" infoClass="message valide"/>
+                </h:panelGroup>
+                 
+                <fieldset>
+                    <legend>
+                        <h:outputText value="#{lang.LABEL_INFORMATIONS_PERSONNELLES}"/>
+                    </legend>
+                    
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <h:selectOneRadio  id="civiliteInput" value="#{demande.stagiaire.civilite}" title="Civilité" required="true" requiredMessage="#{lang.MSG_CIVILITE_OBLIGATOIRE}">
+                                <f:selectItem id="Mr" itemLabel="#{lang.LABEL_MONSIEUR}" itemValue="#{lang.LABEL_MONSIEUR}" />
+                                <f:selectItem id="Mme" itemLabel="#{lang.LABEL_MADAME}" itemValue="#{lang.LABEL_MADAME}" />
+                                <f:selectItem id="nd" itemLabel="#{lang.LABEL_NON_SPECIFIE}" itemValue="#{lang.LABEL_NON_SPECIFIE}" />
+                            </h:selectOneRadio>
+                            <h:message for="civiliteInput" errorClass="message erreur"/>
+                        </div>
+                        <div class="col s3">
+                            <br />
+                        </div>
+                    </div>
+                    
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <h:inputText id="nomInput" value="#{demande.stagiaire.nom}" title="NOM" required="true" requiredMessage="#{lang.MSG_NOM_OBLIGATOIRE}" size="50" maxlength="200" style="text-transform:uppercase;">
+                                <f:validator validatorId="fieldValidator"/>
+                                <f:attribute name="typeValidator" value="name"/>
+                                <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_NOM_INVALIDE}"/>
+                                <f:validateLength minimum="2" maximum="200"/>
+                            </h:inputText>
+                            <h:outputLabel for="nomInput" value="#{lang.LABEL_NOM}" />
+                            <h:message for="nomInput" errorClass="message erreur" />
+                        </div>
+                        <div class="col s3">
+                            <br />
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="input-field col s9">
+                            <h:inputText id="prenomInput" value="#{demande.stagiaire.prenom}" title="Prénom" required="true" requiredMessage="#{lang.MSG_PRENOM_OBLIGATOIRE}" size="50" maxlength="200" style="text-transform:capitalize;">
+                                <f:validator validatorId="fieldValidator"/>
+                                <f:attribute name="typeValidator" value="firstname"/>
+                                <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_PRENOM_INVALIDE}"/>
+                                <f:validateLength minimum="2" maximum="200"/>
+                            </h:inputText>
+                            <h:outputLabel for="prenomInput" value="#{lang.LABEL_PRENOM}" />
+                            <h:message for="prenomInput" errorClass="message erreur" warnClass="message info" infoClass="message valide"/>
+                        </div>
+                        <div class="col s3">
+                            <br />
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <h:outputText value="#{lang.LABEL_FONCTION_ETABLISSEMENT}"/>
+                    </legend>
+                    
+                    <div rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                        <div class="row" rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                            <div class="input-field col s9" rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                                <h:inputText id="fonctionInput" value="#{demande.stagiaire.fonction}" title="Fonction (exemple : « catalogage des périodiques »)"
+                                     required="true" requiredMessage="#{lang.MSG_FONCTION_OBLIGATOIRE}"
+                                     size="50" maxlength="200" rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                                    <f:validateLength minimum="2" maximum="200"/>
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="fonction"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_FONCTION_INVALIDE}"/>
+                                </h:inputText>
+                                <h:outputLabel for="fonctionInput" value="#{lang.LABEL_FONCTION}*" rendered="#{inscriptionStagiaireBean.renderedFonction}" />
+                                <h:message for="fonctionInput" errorClass="message erreur" rendered="#{inscriptionStagiaireBean.renderedFonction}"/>
+                            </div>
+                            <div class="col s3" rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                                <br rendered="#{inscriptionStagiaireBean.renderedFonction}" />
+                                <rich:panel style="border:0px;" rendered="#{inscriptionStagiaireBean.renderedFonction}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_FONCTION}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div rendered="#{inscriptionStagiaireBean.renderedService}">
+                        <div class="row" rendered="#{inscriptionStagiaireBean.renderedService}">
+                            <div class="input-field col s9" rendered="#{inscriptionStagiaireBean.renderedService}">
+                                <h:inputText id="serviceInput" value="#{demande.stagiaire.service}" title="Service (exemple : « Ressources Humaines »)"
+                                     required="true" requiredMessage="#{lang.MSG_SERVICE_OBLIGATOIRE}"
+                                     size="50" maxlength="200" rendered="#{inscriptionStagiaireBean.renderedService}">
+                                    <f:validateLength minimum="2" maximum="200"/>
+                                </h:inputText>
+                                <h:outputLabel rendered="#{inscriptionStagiaireBean.renderedService}" for="serviceInput" value="#{lang.LABEL_SERVICE}*" />
+                                <h:message for="serviceInput" errorClass="message erreur" rendered="#{inscriptionStagiaireBean.renderedService}"/>
+                            </div>
+                            <div class="col s3" rendered="#{inscriptionStagiaireBean.renderedService}">
+                                <br rendered="#{inscriptionStagiaireBean.renderedService}" />
+                                <rich:panel style="border:0px;" rendered="#{inscriptionStagiaireBean.renderedService}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_SERVICE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:selectOneMenu id="etablissementInput" value="#{demande.stagiaire.etablissement}" title="Etablissement" required="true"
+                                         style="width:250px;" requiredMessage="#{lang.MSG_ETABLISSEMENT_OBLIGATOIRE}" valueChangeListener="#{inscriptionStagiaireBean.changeEtablissement}">
+                                    <f:selectItems value="#{inscriptionStagiaireBean.etablissementItems}"/>
+                                    <a4j:ajax onbegin="$('select#iForm\\:rcrInput').material_select('destroy');" event="valueChange" oncomplete="Materialize.updateTextFields(); $('select#iForm\\:rcrInput').material_select();" render="nometablissementInput,rcrInput,adresseInput,adresse2Input,adresse3Input,codePostalInput,villeInput,telephoneInput"  execute="@this" />
+                                </h:selectOneMenu>
+                                <h:outputLabel for="etablissementInput" value="#{lang.LABEL_ETABLISSEMENT}*" />
+                                <h:message for="etablissementInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_ETABLISSEMENT}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="nometablissementInput" value="#{demande.stagiaire.etablissement}" title="Le nom de votre établissement"
+                                            required="true" size="50" maxlength="200" requiredMessage="#{lang.MSG_NOMETABLISSEMENT_OBLIGATOIRE}"/>
+                                <h:outputLabel for="nometablissementInput" value="#{lang.LABEL_NOMETABLISSEMENT}*" />
+                                <h:message for="nometablissementInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_NOMETABLISSEMENT}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div rendered="#{inscriptionStagiaireBean.renderedRCR}">
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:selectOneMenu id="rcrInput" value="#{demande.stagiaire.numrcr}" required="#{inscriptionStagiaireBean.requiredRCR}" style="width:250px;"
+                                         rendered="#{inscriptionStagiaireBean.renderedRCR}" requiredMessage="#{lang.MSG_RCR_OBLIGATOIRE}" valueChangeListener="#{inscriptionStagiaireBean.changeRCR}">
+                                    <f:selectItems value="#{inscriptionStagiaireBean.rcrItems}"/>
+                                    <a4j:ajax event="valueChange" oncomplete="Materialize.updateTextFields();" render="adresseInput,adresse2Input,adresse3Input,codePostalInput,villeInput,telephoneInput" execute="@this" />
+                                </h:selectOneMenu>
+                                <h:outputLabel for="rcrInput" value="#{lang.LABEL_NUMRCR}*" rendered="#{inscriptionStagiaireBean.renderedRCR}" />
+                                <h:message for="rcrInput" errorClass="message erreur" rendered="#{inscriptionStagiaireBean.renderedRCR}" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;" rendered="#{inscriptionStagiaireBean.renderedRCR}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_RCR}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+
+                <fieldset>
+                    <legend>
+                        <h:outputText value="#{lang.LABEL_COORDONNEES}"/>
+                    </legend>
+
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="adresseInput" value="#{demande.stagiaire.adresse}" title="Adresse où sera envoyée la convocation" required="true" size="50" maxlength="200" requiredMessage="#{lang.MSG_NOM_SERVICE_OBLIGATOIRE}"/>
+                                <h:outputLabel for="adresseInput" value="#{lang.LABEL_NOM_SERVICE}*" />
+                                <h:message for="adresseInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_NOM_SERVICE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="adresse2Input" size="50" maxlength="200" value="#{demande.stagiaire.adresse2}" title="Suite de l'adresse"/>
+                                <h:outputLabel for="adresse2Input" value="#{lang.LABEL_ADRESSE}"/>
+                                <h:message for="adresse2Input" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_ADRESSE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="adresse3Input" size="50" maxlength="200" value="#{demande.stagiaire.adresse3}" title="Suite de l'adresse"/>
+                                <h:outputLabel for="adresse3Input" value="#{lang.LABEL_ADRESSE_COMPLEMENT}"/>
+                                <h:message for="adresse3Input" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_ADRESSE_SUITE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="codePostalInput" value="#{demande.stagiaire.codepostal}" title="Code postal" required="true" requiredMessage="#{lang.MSG_CODEPOSTAL_OBLIGATOIRE}" size="9" maxlength="5">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="codepostal"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_CODEPOSTAL_INVALIDE}"/>
+                                    <f:validateLength minimum="5" maximum="5"/>
+                                </h:inputText>
+                                <h:outputLabel for="codePostalInput" value="#{lang.LABEL_CODEPOSTAL}*" />
+                                <h:message for="codePostalInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_CODEPOSTAL}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="villeInput" value="#{demande.stagiaire.ville}" title="Ville" required="true" requiredMessage="#{lang.MSG_VILLE_OBLIGATOIRE}" size="30" maxlength="30">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="ville"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_VILLE_INVALIDE}"/>
+                                    <f:validateLength minimum="2" maximum="30"/>
+                                </h:inputText>
+                                <h:outputLabel for="villeInput" value="#{lang.LABEL_VILLE}*" />
+                                <h:message for="villeInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_VILLE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="telephoneInput" value="#{demande.stagiaire.telephone}" title="Téléphone" size="15" maxlength="20">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="phone"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_TELEPHONE_INVALIDE}"/>
+                                    <f:validateLength minimum="10" maximum="20"/>
+                                </h:inputText>
+                                <h:outputLabel for="telephoneInput" value="#{lang.LABEL_TELEPHONE}"/>
+                                <h:message for="telephoneInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_TELEPHONE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <!-- Champ principal : Email -->
+                                <h:inputText id="mailInput"
+                                             required="true"
+                                             value="#{demande.stagiaire.mail}"
+                                             title="Confirmer l'email"
+                                             size="50"
+                                             maxlength="50"
+                                >
+                                    <!-- Référence au champ de confirmation -->
+                                    <f:attribute name="confirmEmail" value="confirmEmail" />
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="mailCoordinateur"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_MAIL_INVALIDE}"/>
+                                </h:inputText>
+                                <h:outputLabel for="mailInput" value="Adresse e-mail*" />
+                                <h:message for="mailInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_MAIL}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <!-- Champ secondaire : Confirmation de l'Email -->
+                                <h:inputText id="confirmEmail"
+                                             required="true"
+                                             value="#{demande.stagiaire.confirmMail}"
+                                             title="Confirmer l'email"
+                                             size="50"
+                                             maxlength="50" />
+                                <h:outputLabel for="confirmEmail" value="Confirmer l'adresse e-mail*" />
+                                <h:message for="confirmEmail" errorClass="message erreur" />
+                            </div>
+                        </div>
+                    </div>
+
+                    <div rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                        <div class="row" rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                            <div class="input-field col s9" rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                                <h:inputText id="mailCoordinateurInput" required="true" value="#{demande.stagiaire.mailcoordinateur}" title="Mail du coordinateur" size="100" maxlength="100" rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="mailCoordinateur"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_MAIL_INVALIDE}"/>
+                                </h:inputText>
+                                <h:outputLabel for="mailCoordinateurInput" value="#{inscriptionStagiaireBean.labelCoordinateur}*" />
+                                <h:message rendered="#{inscriptionStagiaireBean.renderedCoordinateur}" for="mailCoordinateurInput" errorClass="message erreur"/>
+                            </div>
+                            <div class="col s3" rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                                <br rendered="#{inscriptionStagiaireBean.renderedCoordinateur}" />
+                                <rich:panel style="border:0px;" rendered="#{inscriptionStagiaireBean.renderedCoordinateur}">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_MAIL_COORDINATEUR}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                </fieldset>
+                
+                <br /> <br />
+                
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_PRECEDENT}" action="#{inscriptionStagiaireBean.back}" type="button" immediate="true" />&nbsp;
+                <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_SINSCRIRE}" type="submit" action="#{inscriptionStagiaireBean.next}" />
+                
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

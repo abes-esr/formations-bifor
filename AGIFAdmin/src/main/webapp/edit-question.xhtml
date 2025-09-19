@@ -1,0 +1,143 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_QUESTIONS}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_EDITION_QUESTION}"/>
+        </ui:define>
+        <ui:define name="titre2">
+            <h:outputText value="#{editQuestionBean.question.libellequestion}"/>
+        </ui:define>
+        <ui:define name="contenu">
+
+            <h:form id="iForm" >             
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:panelGrid columns="3" styleClass="formulaire" id="panel">
+
+                     <h:outputLabel for="typeFormationInput"
+                                   value="#{lang.LABEL_NOM_FORMATION}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="typeFormationInput"
+                                     value="#{editQuestionBean.question.idtypeformation}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_FORMATION_OBLIGATOIRE}">
+                        <f:selectItems value="#{editQuestionBean.typeFormationItems}"/>
+                    </h:selectOneMenu>
+                    <h:message for="typeFormationInput"
+                               errorClass="message erreur"/>
+
+                    
+                    <h:outputLabel for="libelleQuestionInput" 
+                                   value="#{lang.LABEL_LIBELLE_QUESTION}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="libelleQuestionInput"
+                                 value="#{editQuestionBean.question.libellequestion}"
+                                 title="Libelle" required="true"
+                                 requiredMessage="#{lang.MSG_LIBELLE_OBLIGATOIRE}"
+                                 size="100" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="libelleQuestionInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="libelleChoix1Input"
+                                   value="#{lang.LABEL_LIBELLE_CHOIX1}"
+                                   styleClass="champ"/>
+                    <h:inputText id="libelleChoix1Input"
+                                 value="#{editQuestionBean.question.libellechoix1}"
+                                 title="Libelle choix 1"
+                                 size="100" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="libelleChoix1Input" errorClass="message erreur"/>
+
+                    <h:outputLabel for="libelleChoix2Input"
+                                   value="#{lang.LABEL_LIBELLE_CHOIX2}"
+                                   styleClass="champ"/>
+                    <h:inputText id="libelleChoix2Input"
+                                 value="#{editQuestionBean.question.libellechoix2}"
+                                 title="Libelle choix 2"
+                                 size="100" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="libelleChoix2Input" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="libelleChoix3Input"
+                                   value="#{lang.LABEL_LIBELLE_CHOIX3}"
+                                   styleClass="champ"/>
+                    <h:inputText id="libelleChoix3Input"
+                                 value="#{editQuestionBean.question.libellechoix3}"
+                                 title="Libelle choix 3"
+                                 size="100" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="libelleChoix3Input" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="libelleChoix4Input"
+                                   value="#{lang.LABEL_LIBELLE_CHOIX4}"
+                                   styleClass="champ"/>
+                    <h:inputText id="libelleChoix4Input"
+                                 value="#{editQuestionBean.question.libellechoix4}"
+                                 title="Libelle choix 4"
+                                 size="100" maxlength="200">
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="libelleChoix4Input" errorClass="message erreur"/>
+
+                    <h:outputLabel for="uniqueMultipleInput"
+                                   value="#{lang.LABEL_UNIQUE_MULTIPLE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneRadio id="uniqueMultipleInput"
+                                      value="#{editQuestionBean.question.uniquemultiple}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_TYPECHOIX_OBLIGATOIRE}">
+                        <f:selectItem itemValue="#{lang.LABEL_UNIQUE}"
+                                      itemLabel="#{lang.LABEL_UNIQUE}"/>
+                        <f:selectItem itemValue="#{lang.LABEL_MULTIPLE}"
+                                      itemLabel="#{lang.LABEL_MULTIPLE}"/>
+                    </h:selectOneRadio>                    
+                    <h:message for="uniqueMultipleInput"
+                               errorClass="message erreur"/>
+
+                    <h:outputLabel for="datespecifieInput"
+                                   value="#{lang.LABEL_DATE_SPECIFIEE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneRadio id="datespecifieInput"
+                                      value="#{editQuestionBean.question.specification}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_SPECIFICATION_OBLIGATOIRE}">
+                        <f:selectItem itemValue="true"
+                                      itemLabel="#{lang.LABEL_OUI}"/>
+                        <f:selectItem itemValue="false"
+                                      itemLabel="#{lang.LABEL_NON}"/>
+                    </h:selectOneRadio>
+                    <h:message for="datespecifieInput"
+                               errorClass="message erreur"/>
+
+
+                </h:panelGrid>
+
+                <h:commandButton  value="#{lang.LABEL_VALIDER}"
+                                  action="#{editQuestionBean.save}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR_QUESTION}"
+                                  immediate="true"
+                                  action="#{editQuestionBean.back}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

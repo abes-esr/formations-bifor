@@ -1,0 +1,169 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>fr.abes.bifor</groupId>
+	<artifactId>AGIF</artifactId>
+	<version>3.4.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<scm>
+		<connection>scm:git:https://git.abes.fr/depots/Formation.git</connection>
+	  <tag>AGIF-3.2.9</tag>
+  </scm>
+	<description>Gestion des formations ABES (ECT)</description>
+	<name>AGIF</name>
+	<modules>
+		<module>AGIFAdmin</module>
+		<module>AGIFBatch</module>
+		<module>AGIFDocument</module>
+		<module>AGIFService</module>
+		<module>AGIFWeb</module>
+	</modules>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<release.javadoc.root.path>javadocBifor/</release.javadoc.root.path>
+	</properties>
+	<distributionManagement>
+    <repository>
+      <id>artifactory-release</id>
+      <url>https://artifactory.abes.fr/artifactory/libs-release-local</url>
+    </repository>
+    <snapshotRepository>
+      <id>artifactory-snapshot</id>
+      <url>https://artifactory.abes.fr/artifactory/libs-snapshot-local</url>
+    </snapshotRepository>
+  </distributionManagement>
+  <repositories>
+    <repository>
+      <id>artifactory-public</id>
+      <name>artifactory-public</name>
+      <url>https://artifactory.abes.fr/artifactory/maven-public/</url>
+    </repository>
+  </repositories>
+  <pluginRepositories>
+    <pluginRepository>
+      <id>artifactory-public</id>
+      <name>artifactory-public</name>
+      <url>https://artifactory.abes.fr/artifactory/maven-public/</url>
+    </pluginRepository>
+  </pluginRepositories>
+  <profiles>
+  <profile>
+            <!--
+                Name of the Maven build profile.
+                Used in project's Jenkins job configuration.
+            -->
+            <id>releaseDocumentation</id>
+            <build>
+                <plugins>
+                    <!--
+                        In preparation of site generation, extract the release
+                        version number to a maven property.
+                        Performed during pre-site phase.
+                    -->
+                    <plugin>
+                        <groupId>org.codehaus.mojo</groupId>
+                        <artifactId>build-helper-maven-plugin</artifactId>
+                        <version>1.8</version>
+                        <executions>
+                            <execution>
+                                <phase>pre-site</phase>
+                                <id>regex-property</id>
+                                <goals>
+                                    <goal>regex-property</goal>
+                                </goals>
+                                <configuration>
+                                    <name>release_version</name>
+                                    <value>${project.version}</value>
+                                    <regex>-SNAPSHOT</regex>
+                                    <replacement />
+                                    <failIfNoMatch>false</failIfNoMatch>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <!--
+                        JavaDoc generation.
+                        JavaDoc is generated during pre-site phase.
+                    -->
+                    <plugin>
+<groupId>org.apache.maven.plugins</groupId>
+<artifactId>maven-javadoc-plugin</artifactId>
+<version>2.9.1</version>
+<executions>
+<execution>
+<id>javadoc</id>
+<phase>pre-site</phase>
+<goals>
+<goal>javadoc</goal>
+</goals>
+</execution>
+<execution>
+<id>aggregate</id>
+<phase>site</phase>
+<goals>
+<goal>aggregate</goal>
+</goals>
+</execution>
+</executions>
+<configuration>
+<show>private</show>
+<additionalparam>-Xdoclint:none</additionalparam>
+</configuration>
+</plugin>
+                    <!--
+                        Copy JavaDoc to publish directory.
+                        Performed during the site phase.
+                        If changing the phase, make sure that copying the
+                        documentation is performed after having generated
+                        the JavaDoc.
+                    -->
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-resources-plugin</artifactId>
+                        <version>2.6</version>
+                        <executions>
+                            <execution>
+                                <id>copy-resources</id>
+                                <phase>site</phase>
+                                <goals>
+                                    <goal>copy-resources</goal>
+                                </goals>
+                                <configuration>
+                                    <generateProjectInfo>false</generateProjectInfo>
+                                    <generateReports>false</generateReports>
+                                    <outputDirectory>${release.javadoc.root.path}${project.artifactId}-${release_version}/</outputDirectory>
+                                    <resources>
+                                        <resource>
+                                            <directory>${project.build.directory}/site/</directory>
+                                            <filtering>true</filtering>
+                                        </resource>
+                                    </resources>
+                                </configuration>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+            <!--
+                Include this section to disable, or configure, generation
+                of project info report(s).
+                In this case, all project info reports have been disabled.
+            -->
+            <reporting>
+                <plugins>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-project-info-reports-plugin</artifactId>
+                        <version>2.7</version>
+                        <reportSets>
+                            <reportSet>
+                                <reports>
+                                </reports>
+                            </reportSet>
+                        </reportSets>
+                    </plugin>
+                </plugins>
+            </reporting>
+        </profile>
+        </profiles>
+</project>

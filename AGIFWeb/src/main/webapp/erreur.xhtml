@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:f="http://java.sun.com/jsf/core">
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}" />
+        </ui:define>
+    
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_ERREUR}" />
+        </ui:define>
+    
+    
+        <ui:define name="contenu">
+            <h:outputText value="#{lang.MSG_ERREUR_APPLICATION}" styleClass="erreur_interne" />
+            <f:verbatim>
+                <br />
+                <br />
+            </f:verbatim>
+            <h:outputText value="#{lang.MSG_ERREUR_CONTACT}" styleClass="information" />
+    
+            <f:verbatim>
+                <a href="mailto:suformation@abes.fr?subject=Erreur interne de l'application de gestion des formations">ici</a>
+            </f:verbatim>
+        </ui:define>
+    </ui:composition>
+</html>

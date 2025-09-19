@@ -1,0 +1,206 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_FORMATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_LISTE_FORMATEURS}"/>
+        </ui:define>       
+        <ui:define name="scripts">
+            <script type="text/javascript" language="javascript" src="/AGIFAdmin/js/jquery-1.9.1.js"></script>
+            <script type="text/javascript" language="javascript" src="/AGIFAdmin/js/jquery.dataTables.js"></script>        
+            <script type="text/javascript" src="/AGIFAdmin/js/jquery.dataTables.columnFilter.js"></script>
+            <script type="text/javascript" src="/AGIFAdmin/js/Datatable.fnClearFilter.js"></script>
+        </ui:define>
+        <ui:define name="contenu">
+              <f:verbatim>          
+                <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/jquery.dataTables.css" />
+                <script>
+                    var asInitVals = new Array();
+                    $(document).ready(function() {
+                        var oTable = $('#listeformateurs').dataTable({
+                            "bSortCellsTop": true,
+                            "iDisplayLength": 100,
+                            "aaSorting": [[5, "desc"]],
+                            "bAutoWidth": false,
+                            "bStateSave": true,
+                            "sCookiePrefix": "Liste_Formateurs_DataTable_",
+                            "iCookieDuration": "session",
+                            "sPaginationType": "full_numbers",
+                            "aoColumns": [
+                                {
+                                    "bSortable": true
+                                },
+
+                                {
+                                    "bSortable": true
+                                },
+                                {
+                                    "bSortable": false
+                                },
+                                {
+                                    "bSortable": false
+                                }
+                            ],
+                            "oLanguage": {
+                                "sProcessing": "Chargement...",
+                                "sLengthMenu": "Afficher _MENU_ entrées",
+                                "sZeroRecords": "Aucun résultat trouvé",
+                                "sEmptyTable": "Aucune donnée dans la table",
+                                "sInfo": "Affiche _START_ à _END_ sur un total de _TOTAL_ entrées",
+                                "sInfoEmpty": "Affiche 0 entrées sur un total de 0 entrées",
+                                "sInfoFiltered": "(filtrées sur un total de _MAX_ entrées)",
+                                "sInfoPostFix": "",
+                                "sSearch": "Chercher sur toutes les colonnes:",
+                                "sUrl": "",
+                                "oPaginate": {
+                                    "sFirst": "&laquo;",
+                                    "sPrevious": "&lt;",
+                                    "sNext": "&gt;",
+                                    "sLast": "&raquo;"
+                                },
+                                "fnInfoCallback": null
+                            }
+                        });
+
+                        $("thead input").keyup(function() {
+                            /* Filter on the column (the index) of this element */
+                            //oTable.fnFilter( this.value, $("thead input").index(this) );
+                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+                        });
+                        $("thead select").change(function() {
+                            /* Filter on the column (the index) of this element */
+                            //if ($(this).prop("selectedIndex")
+                            oTable.fnFilter(this.value, $(this).parent().parent().children('th').index($(this).parent()));
+                        });
+                        /*
+                         * Support functions to provide a little bit of 'user friendlyness' to the textboxes in
+                         * the footer
+                         */
+                        $("thead input").each(function(i) {
+                            asInitVals[$(this).parent().parent().children('th').index($(this).parent())] = this.value;
+                        });
+                        $("thead input").focus(function() {
+                            if (this.className == "search_init")
+                            {
+                                this.className = "";
+                                this.value = "";
+                            }
+                        });
+
+                        $('#effacer_filtres').click(function() {
+                            var oTable = $('#listeformateurs').dataTable();
+                            oTable.fnFilterClear();
+                            $("thead input").val("");
+                            $("thead select").val("");
+                        });
+
+                        $("thead input").blur(function(i) {
+                            if (this.value == "")
+                            {
+                                this.className = "search_init";
+                                this.value = asInitVals[$("thead input").parent().parent().children('th').index($(this).parent())];
+                            }
+                        });
+                        function fill_search_fields() {
+                            var oSettings = oTable.fnSettings();
+                            $("thead input").each(function(i) {
+                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+                                    $(this).removeClass("search_init");
+                                }
+                            });
+                            $("thead select").each(function(i) {
+                                if (oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch'] != '') {
+                                    $(this).val(oSettings.aoPreSearchCols[$(this).parent().parent().children('th').index($(this).parent())]['sSearch']);
+                                    $(this).removeClass("search_init");
+                                }
+                            });
+                            if (oSettings.oPreviousSearch['sSearch'] != '') {
+                                $('.search_field').val(oSettings.oPreviousSearch['sSearch']);
+                            }
+                        }
+                        fill_search_fields();
+                    });
+                </script>
+            </f:verbatim>
+            
+            <h:form prependId="false">
+                 <h:outputLink styleClass="action_datatables" id="effacer_filtres">
+                    <h:outputText value="#{lang.LABEL_EFFACER_FILTRES}"/>
+                </h:outputLink>
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide"/>
+                </h:panelGroup>
+                <h:commandButton  value="#{lang.LABEL_CREER_FORMATEUR}"
+                                  action="new"/>
+                <h:dataTable value="#{listFormateursBean.formateurItems}"
+                                var="item"
+                                 styleClass="tableau"
+                                 headerClass="row_header"
+                                id="listeformateurs"
+                                binding="#{listFormateursBean.dataTable}">
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_NOM_FORMATEUR}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_NOM_FORMATEUR}" 
+                                       name="search_nom"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                        <h:outputText value="#{item.nom}"/>
+                    </h:column>
+                                        
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_PRENOM_FORMATEUR}"/>
+                            <f:verbatim>                            
+                                <input type="text"  value="#{lang.LABEL_PRENOM_FORMATEUR}" 
+                                       name="search_prenom"  class="search_init"/>
+
+                            </f:verbatim>
+                        </f:facet>
+                        <h:outputText value="#{item.prenom}"/>
+                    </h:column>
+
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_MODIFIER}"/>
+                        </f:facet>
+                        <h:commandLink action="#{listFormateursBean.modify}">
+                            <h:graphicImage value="/images/Edit.png"
+                                            style="border: 0px"/>
+                        </h:commandLink>
+                    </h:column>                   
+                    <h:column>
+                        <f:facet name="header">
+                            <h:outputText value="#{lang.LABEL_SUPPRIMER}"/>
+                        </f:facet>
+                        <h:commandLink
+                            onclick="if (!confirm('#{lang.MSG_CONFIRM_SUPPRIMER}'))
+                                return false"
+                            action="#{listFormateursBean.delete}">
+                            <h:graphicImage  value="/images/delete.png"
+                                             style="border: 0px"/>
+                        </h:commandLink>
+                    </h:column>                  
+                    
+                </h:dataTable>
+
+
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+
+

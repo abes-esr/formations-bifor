@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_DEMANDE_OK}"/>
+        </ui:define>
+        
+        <ui:define name="contenu">
+            <h:outputText value="#{lang.LABEL_DEMANDE_AROK} #{demande.stagiaire.mail}. #{lang.LABEL_VERIF_SPAM} #{lang.LABEL_CONTACT_SUPPORT}" styleClass="message info"/>
+            <br/>
+            <h:form id="iFormOK">
+                <div class="row">
+                    <div class="col s12 m6">
+                        <div class="card blue-grey darken-1">
+                            <div class="card-content white-text">
+                                <span class="card-title">
+                                    <i class="fa fa-file-pdf-o" aria-hidden="true"></i>
+                                </span>
+                                <p>
+                                    <h:commandLink styleClass="white-text" id="pdfLink" action="#{inscriptionValidationBean.export}">
+                                        <h:outputText value="#{lang.LABEL_EXPORTEZ_PDF}"/>
+                                    </h:commandLink>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_RETOUR}" action="#{inscriptionValidationBean.Retour}" immediate="true" />
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

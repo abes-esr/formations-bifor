@@ -1,0 +1,100 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_COMPTE_UTILISATEUR}"/>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_CONNEXION_UTILISATEUR}"/>
+        </ui:define>
+      
+        <ui:define name="contenu">
+            <h:form id="iFormConnexion">
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list"  globalOnly="true" errorClass="message erreur" infoClass="message valide"/>
+                </h:panelGroup>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <fieldset>
+                    <legend><h:outputText value="#{lang.LABEL_FORMULAIRE_CONNEXION}"/></legend>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputText id="loginInput" value="#{stagiaireBean.stagiaire.identifiant}" title="IDENTIFIANT" required="true" requiredMessage="#{lang.MSG_IDENTIFIANT_OBLIGATOIRE}" size="20" maxlength="15">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="login"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_IDENTIFIANT_INVALIDE}"/>
+                                    <f:validateLength minimum="2" maximum="15"/>
+                                </h:inputText>
+                                <h:outputLabel for="loginInput" value="#{lang.LABEL_IDENTIFIANT}*" />
+                                <h:message for="loginInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_NOM_UTILISATEUR}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <div class="row">
+                            <div class="input-field col s9">
+                                <h:inputSecret id="passwordInput" value="#{stagiaireBean.stagiaire.motdepasse}" title="MOTDEPASSE" required="true" requiredMessage="#{lang.MSG_MOTDEPASSE_OBLIGATOIRE}" valueChangeListener="#{connexionMonCompteBean.passwordChanged}" size="20" maxlength="15">
+                                    <f:validator validatorId="fieldValidator"/>
+                                    <f:attribute name="typeValidator" value="password"/>
+                                    <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_MOTDEPASSE_INVALIDE}"/>
+                                    <f:validateLength minimum="2" maximum="15"/>
+                                </h:inputSecret>
+                                <h:outputLabel for="passwordInput" value="#{lang.LABEL_MOTDEPASSE}*" />
+                                <h:message for="passwordInput" errorClass="message erreur" />
+                            </div>
+                            <div class="col s3">
+                                <br />
+                                <rich:panel style="border:0px;">
+                                    <span class="fa-stack fa-lg">
+                                        <i class="fa fa-square fa-stack-2x"></i>
+                                        <i class="fa fa-info fa-stack-1x fa-inverse"></i>
+                                    </span>
+                                    <rich:tooltip layout="block">
+                                        <h:outputText value="#{lang.AIDE_MOT_DE_PASSE}" />
+                                    </rich:tooltip>
+                                </rich:panel>
+                            </div>
+                        </div>
+                    </div>
+
+                    <h:outputFormat value="#{lang.MSG_NB_TENTATIVES}" styleClass="tentative">
+                        <f:param value="#{connexionMonCompteBean.nbTentatives}"/>
+                    </h:outputFormat>
+                    <br /><br />
+                    <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_CONNECTER}" type="submit" action="#{connexionMonCompteBean.loginStagiaire}"/> 
+                    
+                </fieldset>
+
+                <br/>
+                <h:commandLink value="#{lang.LABEL_OUBLIE_MOTDEPASSE}" action="forgot" type="button" immediate="true"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>

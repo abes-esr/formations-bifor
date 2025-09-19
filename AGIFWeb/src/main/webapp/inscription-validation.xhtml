@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+        <ui:define name="etape">
+            <div class="chip">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Choix de la session
+            </div>
+            <div class="chip">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Inscription
+            </div>
+            <div class="chip">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                Renseignement complémentaire
+            </div>
+            <div class="chip bifor-blue white-text">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Confirmation
+            </div>
+        </ui:define>
+
+        <ui:define name="utilisateur">
+            <div class="chip" rendered="#{demande.estConnecte}">
+                <i class="fa fa-user"></i>&nbsp;
+                <h:outputText value="#{lang.LABEL_BIENVENUE}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.prenom}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.nom}"/>
+            </div>
+        </ui:define>
+
+        
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_ETAPE4}"/>
+        </ui:define>
+
+        <ui:define name="contenu">
+            <fieldset>
+                <legend>
+                    <h:outputText value="#{lang.LABEL_DEMANDE_COORDONNEES}"/>
+                </legend>
+                <h:form id="iForm4">
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="#{lang.LABEL_NOM_MODULE}" />
+                        <h:outputText value="#{demande.typeFormation.nom}"/>
+                        <h:outputText value="#{lang.LABEL_NOM}" />
+                        <h:outputText value="#{demande.stagiaire.nom}"/>
+                        <h:outputText value="#{lang.LABEL_PRENOM}" />
+                        <h:outputText value="#{demande.stagiaire.prenom}"/>
+                        <h:outputText value="#{lang.LABEL_FONCTION}"  rendered="#{inscriptionValidationBean.renderedFonction}"/>
+                        <h:outputText value="#{demande.stagiaire.fonction}" rendered="#{inscriptionValidationBean.renderedFonction}"/>
+                        <h:outputText value="#{lang.LABEL_SERVICE}"  rendered="#{inscriptionValidationBean.renderedService}"/>
+                        <h:outputText value="#{demande.stagiaire.service}" rendered="#{inscriptionValidationBean.renderedService}"/>
+                        <h:outputText value="#{lang.LABEL_ETABLISSEMENT}" />
+                        <h:outputText value="#{demande.stagiaire.etablissement}"/>
+                        <h:outputText value="#{lang.LABEL_NUMRCR}"  rendered="#{inscriptionValidationBean.renderedRCR}"/>
+                        <h:outputText value="#{demande.stagiaire.numrcr}" rendered="#{inscriptionValidationBean.renderedRCR}"/>
+                        <h:outputText value="#{lang.LABEL_ADRESSE}" />
+                        <h:outputText value="#{demande.stagiaire.adresse}"/>
+                        <h:outputText value="#{lang.LABEL_ADRESSE_COMPLEMENT}" />
+                        <h:outputText value="#{demande.stagiaire.adresse2}"/>
+                        <h:outputText value="#{lang.LABEL_ADRESSE_SUITE}" />
+                        <h:outputText value="#{demande.stagiaire.adresse3}"/>
+                        <h:outputText value="#{lang.LABEL_CODEPOSTAL}" />
+                        <h:outputText value="#{demande.stagiaire.codepostal}"/>
+                        <h:outputText value="#{lang.LABEL_VILLE}" />
+                        <h:outputText value="#{demande.stagiaire.ville}"/>
+                        <h:outputText value="#{lang.LABEL_TELEPHONE}" />
+                        <h:outputText value="#{demande.stagiaire.telephone}"/>
+                        <h:outputText value="#{lang.LABEL_MAIL}" />
+                        <h:outputText value="#{demande.stagiaire.mail}"/>
+                        <h:outputText value="#{lang.LABEL_MAIL_COORDINATEUR}"   rendered="#{inscriptionValidationBean.renderedCoordinateur}"/>
+                        <h:outputText value="#{demande.stagiaire.mailcoordinateur}" rendered="#{inscriptionValidationBean.renderedCoordinateur}"/>
+                    </h:panelGrid>
+                    
+                    <h:commandButton styleClass="btn grey" action="back_stagiaire" value="#{lang.LABEL_MODIFIER}"/>
+                </h:form>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                    <h:outputText value="#{lang.LABEL_DEMANDE_SESSIONS}"/>
+                </legend>
+                <h:form id="iForm5">
+                    <h:panelGrid columns="2" >
+                        <h:outputText value="#{lang.LABEL_CHOIX_PRIORITAIRE}" />
+                        <h:outputText value="#{demande.choixPrioritaire.titre}"/>
+                        <h:outputText value="#{lang.LABEL_CHOIX_SECONDAIRE}" />
+                        <h:outputText value="#{demande.choixSecondaire.titre}"/>
+                    </h:panelGrid>
+
+                    <h:commandButton styleClass="btn grey" action="back_sessions" value="#{lang.LABEL_MODIFIER}"/>
+                </h:form>
+            </fieldset>
+
+            <fieldset>
+                <legend>
+                     <h:outputText value="#{lang.LABEL_DEMANDE_RENSEIGNEMENTS}"/>
+                </legend>
+                <h:form id="iForm6">               
+                    <h:dataTable value="#{demande.reponses}" var="item" border="0" cellpadding="2" cellspacing="2">
+                        <h:column>
+                            <h:outputText value="#{item.idquestion.libellequestion}" />
+                        </h:column>
+                        <h:column>
+                            <h:panelGrid columns="3">
+                                <h:outputText value="#{item.listeChoix}" rendered="#{(item.idquestion.uniquemultiple eq lang.VALUE_MULTIPLE)}"/>
+                                <h:outputText value="#{item.choix}" rendered="#{(item.idquestion.uniquemultiple ne lang.VALUE_MULTIPLE)}"/>
+                                <h:outputText value="#{item.dateSpecification}" rendered="#{item.idquestion.specification}">
+                                    <f:convertDateTime pattern= "dd/MM/yyyy" type="date"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </h:column>
+                    </h:dataTable>
+                    <h:commandButton styleClass="btn grey" action="back_questions" value="#{lang.LABEL_MODIFIER}"/>
+                </h:form>
+            </fieldset>
+
+            <br /><br />
+
+            <h:form id="iForm7">          
+            
+            	<h:commandLink styleClass="btn grey" value="#{lang.LABEL_ANNULER}" action="#{inscriptionValidationBean.Retour}" immediate="true"/>&nbsp;  
+                <h:commandButton styleClass="btn bifor-blue" action="#{inscriptionValidationBean.Validation}" value="#{lang.LABEL_DEMANDE_VALIDER}"/>
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

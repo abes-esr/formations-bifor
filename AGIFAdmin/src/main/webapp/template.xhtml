@@ -1,0 +1,144 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title><ui:insert name="titre_page" /></title>
+        <link rel="icon" type="image/x-icon" href="images/favicon.ico"/> 
+        <link rel="shortcut icon" href="/AGIFAdmin/images/favicon.ico"/> 
+        <!-- Insertion des styles de la page -->
+        <ui:insert name="styles">
+            <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/layout.css" />
+            <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/style.css" />
+            <link rel="stylesheet" type="text/css" href="/AGIFAdmin/css/cssmenu.css" />            
+        </ui:insert>
+
+        <!-- Scripts du menu -->
+        <ui:insert name="scripts">
+            <script src="https://outils.abes.fr/cookie-banner/bandeau.js" language="javascript" type="text/javascript" id="cookie-banner-script" data-cookie-banner-url="https://bifor.abes.fr/donnees_personnelles.xhtml"></script>
+        </ui:insert>
+
+    </h:head>
+    <h:body>
+         <!-- ABES :  #{templateBean.nom_machine} %> -->       
+
+        <f:view>
+            <div id="#{templateBean.css}">
+                <!--BEGIN - Header du site -->
+                <ui:insert name="entete">
+                    <div id="lh_header">
+                        <div id="lh_logo"><img src="../images/logo-ABES.png"/></div>
+                        <div id="lh_banniere">&nbsp;</div>
+                    </div>
+                </ui:insert>
+                <!--END - Header du site-->
+                <ui:insert name="menu">
+                    <div id="lh_menu">
+                        <div id='cssmenu'>
+                            <ul>
+                                <li class="has-sub">
+                                    <h:outputLink><h:outputText value="#{lang.LABEL_GESTION_SESSIONS}"/>
+                                    </h:outputLink>
+                                    <ul>
+                                        <li> <h:outputLink
+                                                value="#{lang.LIEN_LISTE_SESSIONS}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_LISTE_SESSIONS}"/>
+                                            </h:outputLink>
+                                        </li>
+                                        <li class='last'>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_CREER_SESSION}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_CREER_SESSION}"/>
+                                            </h:outputLink>
+                                        </li>
+
+                                    </ul>
+
+                                </li>                                    
+                                <li class="has-sub last">
+                                    <h:outputLink><h:outputText
+                                        value="#{lang.LABEL_GESTION_TABLES}" /></h:outputLink> 
+                                    <ul>
+                                        <li><h:outputLink
+                                                value="#{lang.LIEN_SESSIONS}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_SESSIONS}"/>
+                                            </h:outputLink></li>
+                                        <li>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_FORMATEUR}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_FORMATEUR}"/>
+                                            </h:outputLink>
+                                        </li>
+                                        <li>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_LIEU}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_LIEU}"/>
+                                            </h:outputLink>
+                                        </li>
+                                        <li>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_FORMATIONS}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_TYPEFORMATION}"/>
+                                            </h:outputLink>
+                                        </li>
+                                        <li>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_QUESTIONS}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_QUESTIONS}"/>
+                                            </h:outputLink>
+                                        </li>
+                                        <li class='last'>
+                                            <h:outputLink
+                                                value="#{lang.LIEN_STAGIAIRES}">
+                                                <h:outputText
+                                                    value="#{lang.LABEL_GESTION_STAGIAIRE}"/>
+                                            </h:outputLink>
+
+                                        </li>
+                                    </ul>
+
+
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </ui:insert>
+
+                <!--BEGIN - Contenu du site -->
+
+                <div id="lh_content">
+                    <h1><ui:insert name="titre1"/></h1>
+                    <h2><ui:insert name="titre2"/></h2>
+                    <ui:insert name="encours"/>
+                    <br/>
+                    <ui:insert name="contenu"/>
+                </div>
+
+                <!--END - contenu du site-->
+                <div>&nbsp;</div>
+                <!--BEGIN - Footer du site -->
+                <ui:insert name="pied">
+                    <div id="lh_footer">
+                        <div class="footer">
+                            <b><a href="cgu.xhtml"><h:outputText value="#{lang.LABEL_CGU}"/></a> |
+                            <a href="donnees_personnelles.xhtml"><h:outputText value="#{lang.LABEL_DONNEES_PERSONNELLES}"/></a> |
+                            <a href="mentions_legales.xhtml"><h:outputText value="#{lang.LABEL_MENTIONS_LEGALES}"/></a></b>
+                        </div>
+                    </div>
+                    <!--END - Footer du site-->
+                </ui:insert>
+            </div>
+        </f:view>
+    </h:body>
+</html>

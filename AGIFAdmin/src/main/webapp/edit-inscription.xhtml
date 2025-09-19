@@ -1,0 +1,322 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_GESTION_SESSIONS}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_MODIFICATION_INSCRIPTION}"/>
+        </ui:define>     
+        <ui:define name="titre2">
+            <h:outputText value="#{editInscriptionBean.inscription.idsessions1.idtypeformation.nom}"/>
+        </ui:define>       
+        <ui:define name="contenu">
+
+            <h:form id="iForm" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide"/>
+                </h:panelGroup>
+
+                <h:outputText value="#{lang.LABEL_DEMANDE_COORDONNEES}"
+                              styleClass="en_cours"/>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:inputHidden id="idinscription"
+                               value="#{editInscriptionBean.inscription.idinscription}"/>
+                <h:panelGrid columns="3" styleClass="formulaire" id="panel">
+                    <h:outputLabel for="civiliteInput" value="#{lang.LABEL_CIVILITE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneRadio  id="civiliteInput"
+                                       value="#{editInscriptionBean.inscription.idstagiaire.civilite}"
+                                       title="Civilite" required="true"
+                                       requiredMessage="#{lang.MSG_CIVILITE_OBLIGATOIRE}">
+                        <f:selectItem id="Mr" itemLabel="#{lang.LABEL_MONSIEUR}"
+                                      itemValue="#{lang.LABEL_MONSIEUR}" />
+                        <f:selectItem id="Mme" itemLabel="#{lang.LABEL_MADAME}"
+                                      itemValue="#{lang.LABEL_MADAME}" />
+                        <f:selectItem id="nd" itemLabel="#{lang.LABEL_NON_SPECIFIE}"
+                                      itemValue="#{lang.LABEL_NON_SPECIFIE}" />
+                    </h:selectOneRadio>
+                    <h:message for="civiliteInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="nomInput" value="#{lang.LABEL_NOM}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="nomInput" value="#{editInscriptionBean.inscription.idstagiaire.nom}"
+                                 title="Nom" required="true"
+                                 requiredMessage="#{lang.MSG_NOM_OBLIGATOIRE}"
+                                 size="50" maxlength="200"
+                                 style="text-transform:uppercase;">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="name"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_NOM_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="nomInput" errorClass="message erreur" />
+
+                    <h:outputLabel for="prenomInput" value="#{lang.LABEL_PRENOM}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="prenomInput" value="#{editInscriptionBean.inscription.idstagiaire.prenom}"
+                                 title="prenom" required="true"
+                                 requiredMessage="#{lang.MSG_PRENOM_OBLIGATOIRE}"
+                                 size="50" maxlength="200"
+                                 style="text-transform:capitalize;">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="firstname"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_PRENOM_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="200"/>
+                    </h:inputText>
+                    <h:message for="prenomInput" errorClass="message erreur"
+                               warnClass="message info"
+                               infoClass="message valide"/>
+                    <h:outputLabel for="fonctionInput" value="#{lang.LABEL_FONCTION}"
+                                   styleClass="champ obligatoire"
+                                   />
+                    <h:inputText id="fonctionInput" value="#{editInscriptionBean.inscription.idstagiaire.fonction}"
+                                 title="fonction" 
+                                 size="30" maxlength="200"
+                                 >
+                        <f:validateLength minimum="2" maximum="200"/>
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="fonction"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_FONCTION_INVALIDE}"/>
+                    </h:inputText>
+                    <h:message for="fonctionInput" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="serviceInput" value="#{lang.LABEL_SERVICE}"
+                                   styleClass="champ"
+                                   />
+                    <h:inputText id="serviceInput" value="#{editInscriptionBean.inscription.idstagiaire.service}"
+                                 title="service"
+                                 size="30" maxlength="200"
+                                 >
+                        <f:validateLength minimum="2" maximum="200"/>
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="service"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_SERVICE_INVALIDE}"/>
+                    </h:inputText>
+                    <h:message for="serviceInput" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="etablissementListInput" value="#{lang.LABEL_ETABLISSEMENT}" styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="etablissementListInput" value="#{editInscriptionBean.inscription.idstagiaire.etablissement}" title="Etablissement" required="true" requiredMessage="#{lang.MSG_ETABLISSEMENT_OBLIGATOIRE}">
+                    	<f:selectItems value="#{editInscriptionBean.etablissementItems}"/>
+                       	<a4j:ajax event="valueChange" render="etablissementInput,rcrInput,adresseInput,adresse2Input,adresse3Input,codePostalInput,villeInput,telephoneInput" 
+                           	execute="@this" listener="#{editInscriptionBean.changeEtablissement}"/>                                                                 
+                    </h:selectOneMenu>
+                    <h:message for="etablissementListInput" errorClass="message erreur"/>
+
+					<h:outputLabel for="etablissementInput" value="#{lang.LABEL_ETABLISSEMENT}" styleClass="champ obligatoire"/>
+                    <h:inputText id="etablissementInput" value="#{editInscriptionBean.inscription.idstagiaire.etablissement}" title="Etablissement" required="true" requiredMessage="#{lang.MSG_ETABLISSEMENT_OBLIGATOIRE}" />
+                    <h:message for="etablissementInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="rcrInput" value="#{lang.LABEL_NUMRCR}"  rendered="#{editInscriptionBean.renderedRCR}" styleClass="champ" />
+                    <h:panelGroup rendered="#{editInscriptionBean.renderedRCR}">
+                        <h:selectOneMenu id="rcrInput" value="#{editInscriptionBean.inscription.idstagiaire.numrcr}">
+                        	<f:selectItems value="#{editInscriptionBean.rcrItems}"/>
+                           	<a4j:ajax event="valueChange" render="rcrInput,adresseInput,adresse2Input,adresse3Input,codePostalInput,villeInput,telephoneInput" 
+                                     execute="rcrInput" listener="#{editInscriptionBean.changeRCR}"/>
+                        </h:selectOneMenu>
+                        <a4j:outputPanel ajaxRendered="true">
+                            <h:inputText id="rcrInput2" value="#{editInscriptionBean.inputRCR}" title="Numero RCR" size="20" rendered="#{editInscriptionBean.renderedInputRCR}">
+                                <f:validateLength minimum="8" maximum="10"/>
+                                <f:validateLongRange minimum="100000000" maximum="999999999"/>
+                            </h:inputText>
+                        </a4j:outputPanel>
+                    </h:panelGroup>
+                    <h:message for="rcrInput" errorClass="message erreur" rendered="#{editInscriptionBean.renderedRCR}"/>
+
+                    <h:outputLabel for="adresseInput" value="#{lang.LABEL_NOM_SERVICE}"/>
+                    <h:inputText id="adresseInput" value="#{editInscriptionBean.inscription.idstagiaire.adresse}" title="Adresse" size="50" />
+                    <h:message for="adresseInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="adresse2Input" value="#{lang.LABEL_ADRESSE}"/>
+                    <h:inputText id="adresse2Input" size="50" value="#{editInscriptionBean.inscription.idstagiaire.adresse2}" title="Adresse"  />
+                    <h:message for="adresse2Input" errorClass="message erreur"/>
+
+                    <h:outputLabel for="adresse3Input" value="#{lang.LABEL_ADRESSE_COMPLEMENT}"/>
+                    <h:inputText id="adresse3Input" size="50" value="#{editInscriptionBean.inscription.idstagiaire.adresse3}" title="Adresse"/>
+                    <h:message for="adresse3Input" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="codePostalInput" value="#{lang.LABEL_CODEPOSTAL}" styleClass="champ obligatoire"/>
+                    <h:inputText id="codePostalInput" value="#{editInscriptionBean.inscription.idstagiaire.codepostal}" title="code postal" required="true" requiredMessage="#{lang.MSG_CODEPOSTAL_OBLIGATOIRE}" size="9" maxlength="5">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="codepostal"/>
+                        <f:attribute name="messageValidator" value="#{lang.MSG_FORMAT_CODEPOSTAL_INVALIDE}"/>
+                        <f:validateLength minimum="5" maximum="5"/>
+                    </h:inputText>
+                    <h:message for="codePostalInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="villeInput"
+                                   value="#{lang.LABEL_VILLE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="villeInput" value="#{editInscriptionBean.inscription.idstagiaire.ville}"
+                                 title="ville" required="true"
+                                 requiredMessage="#{lang.MSG_VILLE_OBLIGATOIRE}"
+                                 size="30" maxlength="30">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="ville"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_VILLE_INVALIDE}"/>
+                        <f:validateLength minimum="2" maximum="30"/>
+                    </h:inputText>
+                    <h:message for="villeInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="telephoneInput"
+                                   value="#{lang.LABEL_TELEPHONE}"/>
+                    <h:inputText id="telephoneInput"
+                                 value="#{editInscriptionBean.inscription.idstagiaire.telephone}"
+                                 title="telephone"
+                                 size="15" maxlength="20">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="phone"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_TELEPHONE_INVALIDE}"/>
+                        <f:validateLength minimum="10" maximum="20"/>
+                    </h:inputText>
+                    <h:message for="telephoneInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="mailInput"
+                                   value="#{lang.LABEL_MAIL}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="mailInput"
+                                 value="#{editInscriptionBean.inscription.idstagiaire.mail}"
+                                 title="mail"
+                                 required="true"
+                                 requiredMessage="#{lang.MSG_MAIL_OBLIGATOIRE}"
+                                 size="50" maxlength="50">
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="mail"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_MAIL_INVALIDE}"/>
+                    </h:inputText>
+                    <h:message for="mailInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="mailCoordinateurInput"
+                                   value="#{lang.LABEL_MAIL_COORDINATEUR}"
+                                   styleClass="champ obligatoire"
+                                   />
+                    <h:inputText id="mailCoordinateurInput"
+                                 value="#{editInscriptionBean.inscription.idstagiaire.mailcoordinateur}"
+                                 title="mail coordinateur"
+                                 size="100" maxlength="100" >
+                        <f:validator validatorId="fieldValidator"/>
+                        <f:attribute name="typeValidator" value="mailCoordinateur"/>
+                        <f:attribute name="messageValidator"
+                                     value="#{lang.MSG_FORMAT_MAIL_INVALIDE}"/>
+                    </h:inputText>
+                    <h:message for="mailCoordinateurInput" errorClass="message erreur"/>
+
+                </h:panelGrid>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:outputText value="#{lang.LABEL_DEMANDE_SESSIONS}"
+                              styleClass="en_cours"/>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+
+                <h:panelGrid styleClass="formulaire" columns="3">
+                    <h:outputLabel for="choixPrioritaireSelect"
+                                   value="#{lang.LABEL_CHOIX_PRIORITAIRE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="choixPrioritaireSelect"
+                                     value="#{editInscriptionBean.inscription.idsessions1}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_CHOIX_PRIORITAIRE_OBLIGATOIRE}">
+                        <f:selectItems value="#{editInscriptionBean.sessionsPrioritaires}"/>
+                    </h:selectOneMenu>
+                    <h:message for="choixPrioritaireSelect" errorClass="message erreur"/>
+
+                    <h:outputLabel for="choixSecondaireSelect"
+                                   value="#{lang.LABEL_CHOIX_SECONDAIRE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="choixSecondaireSelect"
+                                     value="#{editInscriptionBean.inscription.idsessions2}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_CHOIX_SECONDAIRE_OBLIGATOIRE}">
+                        <f:selectItems value="#{editInscriptionBean.sessionsSecondaires}"/>
+                    </h:selectOneMenu>
+                    <h:message for="choixSecondaireSelect"
+                               errorClass="message erreur"/>
+                </h:panelGrid>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+                <h:outputText value="#{lang.LABEL_DEMANDE_RENSEIGNEMENTS}"
+                              styleClass="en_cours"/>
+                <f:verbatim>
+                    <br/>
+                </f:verbatim>
+
+                <h:dataTable value="#{editInscriptionBean.reponseItems}"
+                             var="item" border="0" cellpadding="2"
+                             cellspacing="2" styleClass="formulaire"
+                             binding="#{editInscriptionBean.dataTable}"
+                             >
+                    <h:column>
+                        <h:outputLabel value="#{item.idquestion.libellequestion}"
+                                       styleClass="champ obligatoire"/>
+                    </h:column>
+                    <h:column>
+                        <h:panelGrid columns="3">
+                            <h:selectManyCheckbox  value="#{item.listeChoix}"
+                                                   id="questionCheckBox"
+                                                   required="true"
+                                                   requiredMessage="#{lang.MSG_CHOIX_OBLIGATOIRE}"
+                                                   rendered="#{(item.idquestion.uniquemultiple
+                                                               eq lang.VALUE_MULTIPLE)}">
+                                <f:selectItems value="#{item.idquestion.selectChoix}" />
+                            </h:selectManyCheckbox>
+                            <h:selectOneRadio   value="#{item.choix}"
+                                                id="questionRadio"
+                                                required="true"
+                                                requiredMessage="#{lang.MSG_CHOIX_OBLIGATOIRE}"
+                                                rendered="#{(item.idquestion.uniquemultiple
+                                                            ne lang.VALUE_MULTIPLE)}">
+                                <f:selectItems value="#{item.idquestion.selectChoix}" />
+                            </h:selectOneRadio>
+
+                            <a4j:outputPanel id="calendar" layout="block">
+                                <rich:calendar value="#{item.dateSpecification}"
+                                               datePattern="dd/MM/yyyy"
+                                               rendered="#{item.idquestion.specification}"
+                                               />
+                            </a4j:outputPanel>
+                        </h:panelGrid>
+                    </h:column>
+                    <h:column>
+                        <h:message for="questionCheckBox"
+                                   errorClass="message erreur"/>
+                        <h:message for="questionRadio"
+                                   errorClass="message erreur"/>
+                    </h:column>
+                </h:dataTable>
+
+                <h:commandButton  value="#{lang.LABEL_MODIFIER}"
+                                  action="#{editInscriptionBean.modify}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR_FORMATIONS}"
+                                  immediate="true"
+                                  action="#{editInscriptionBean.back}"/>
+            </h:form>
+        </ui:define>
+    </ui:composition>
+</html>
+
+

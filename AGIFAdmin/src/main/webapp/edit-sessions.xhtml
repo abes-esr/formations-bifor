@@ -1,0 +1,388 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_CREER_SESSION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_EDIT_SESSION}"/>
+        </ui:define>       
+
+        <ui:define name="contenu">
+
+            <h:form id="iForm" >
+                <h:panelGroup id="messagePanel" layout="block">
+                    <h:messages layout="list" errorClass="message erreur"
+                                infoClass="message valide"
+                                warnClass="message info"/>
+                </h:panelGroup>
+
+                <h:panelGrid columns="3" styleClass="formulaire" id="panel">
+                    <h:outputLabel for="typeFormationInput"
+                                   value="#{lang.LABEL_NOM_FORMATION}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="typeFormationInput"
+                                     value="#{editSessionsBean.sessions.idtypeformation}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_FORMATION_OBLIGATOIRE}">
+                        <f:selectItems value="#{editSessionsBean.typeFormationItems}"/>
+                    </h:selectOneMenu>
+                    <h:message for="typeFormationInput"
+                               errorClass="message erreur"/>
+
+                    <h:outputLabel for="titreInput"
+                                   value="#{lang.LABEL_INTITULE_SESSION}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="titreInput"
+                                 value="#{editSessionsBean.sessions.titre}"
+                                 title="Intitule" required="true"
+                                 requiredMessage="#{lang.MSG_INTITULE_OBLIGATOIRE}"
+                                 size="50" maxlength="100">
+                        <f:validateLength minimum="2" maximum="100"/>
+                    </h:inputText>
+                    <h:message for="titreInput" errorClass="message erreur" />
+
+                    <h:outputLabel for="typeSessionInput"
+                                   value="#{lang.LABEL_MODALITES_DEROULEMENT}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="typeSessionInput"
+                                     value="#{editSessionsBean.sessions.idtypesession}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_FORMATION_OBLIGATOIRE}">
+                        <f:selectItems value="#{editSessionsBean.typeSessionItems}"/>
+                    </h:selectOneMenu>
+                    <h:message for="typeSessionInput"
+                               errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="nombrePlaceInput"
+                                   value="#{lang.LABEL_NOMBRE_PLACE_DISPO}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="nombrePlaceInput" 
+                                 value="#{editSessionsBean.sessions.nbpersonnemax}"
+                                 title="Nombre de places disponibles"
+                                 required="true"
+                                 requiredMessage="#{lang.MSG_NBPLACES_OBLIGATOIRE}"
+                                 size="4" maxlength="3">
+                        <f:validateLength minimum="1" maximum="3"/>
+                        <f:validateLongRange minimum="1" maximum="999"/>
+                    </h:inputText>
+                    <h:message for="nombrePlaceInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="dateDebutInput"
+                                   value="#{lang.LABEL_DATE_DEBUT}"
+                                   styleClass="champ obligatoire"/>
+                    <a4j:outputPanel id="dateDebutInput" layout="block">
+                        <rich:calendar value="#{editSessionsBean.sessions.datedebut}"
+                                       datePattern="dd/MM/yyyy HH:mm"
+                                       firstWeekDay="1"
+                                       defaultTime="09:00">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </rich:calendar>
+                    </a4j:outputPanel>
+                    <h:message for="dateDebutInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="dateFinInput"
+                                   value="#{lang.LABEL_DATE_FIN}"
+                                   styleClass="champ obligatoire"/>
+                    <a4j:outputPanel id="dateFinInput" layout="block">
+                        <rich:calendar value="#{editSessionsBean.sessions.datefin}"
+                                       datePattern="dd/MM/yyyy HH:mm"
+                                       firstWeekDay="1"
+                                       defaultTime="16:30" >
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </rich:calendar>
+                    </a4j:outputPanel>
+                    <h:message for="dateFinInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="dateClotureInput"
+                                   value="#{lang.LABEL_DATE_CLOTURE}"
+                                   styleClass="champ obligatoire"/>
+                    <a4j:outputPanel id="dateClotureInput" layout="block">
+                        <rich:calendar value="#{editSessionsBean.sessions.datecloture}"
+                                       datePattern="dd/MM/yyyy HH:mm"
+                                       firstWeekDay="1"
+                                       defaultTime="17:00">
+                            <f:convertDateTime pattern="dd/MM/yyyy HH:mm:ss" />
+                        </rich:calendar>
+
+                    </a4j:outputPanel>
+                    <h:message for="dateClotureInput" errorClass="message erreur"/>
+
+                    <h:outputLabel for="formateurInput"
+                                   value="#{lang.LABEL_NOM_FORMATEUR}"
+                                   styleClass="champ obligatoire"/>
+                    <h:panelGroup>
+                        <h:selectOneMenu id="formateurInput"
+                                         value="#{editSessionsBean.sessions.idformateur}"
+                                         required="true"
+                                         requiredMessage="#{lang.MSG_FORMATEUR_OBLIGATOIRE}">
+                            <f:selectItems
+                                id="formateurInputItems"
+                                value="#{editSessionsBean.formateurItems}"/>
+                        </h:selectOneMenu>
+
+                        <h:outputLink value="#" id="newFormateur">
+        
+                            <h:graphicImage  value="/images/plus.png"
+                                             style="border: 0px">
+                            <rich:componentControl target="panelFormateur" 
+                                                   event="click" operation="show" />
+                            </h:graphicImage>
+                        </h:outputLink>
+                    </h:panelGroup>
+                    <h:message for="formateurInput"
+                               errorClass="message erreur"/>
+
+                    <h:outputLabel for="lieuInput"
+                                   value="#{lang.LABEL_LIEU_FORMATION}"
+                                   styleClass="champ obligatoire"/>
+                    <h:panelGroup><h:selectOneMenu id="lieuInput"
+                                                   value="#{editSessionsBean.sessions.idlieu}"
+                                                   required="true"
+                                                   requiredMessage="#{lang.MSG_LIEU_OBLIGATOIRE}">
+                            <f:selectItems value="#{editSessionsBean.lieuItems}"/>
+                        </h:selectOneMenu>
+                        <h:outputLink value="#" id="newLieu">         
+                            <h:graphicImage  value="/images/plus.png"
+                                             style="border: 0px">
+                                <rich:componentControl target="panelLieu" 
+                                                       event="click" operation="show" />
+                            </h:graphicImage>
+
+                        </h:outputLink>
+                    </h:panelGroup>
+                    <h:message for="lieuInput"
+                               errorClass="message erreur"/>
+
+                    <h:outputLabel for="dureeInput"
+                                   value="#{lang.LABEL_DUREE}"
+                                   styleClass="champ obligatoire"/>
+                    <h:panelGroup>
+                        <h:panelGrid columns="4">
+                            <rich:inputNumberSpinner minValue="1"
+                                                     value="#{editSessionsBean.dureeHeure}"
+                                                     maxValue="100"
+                                                     inputSize="3"/>
+                            <h:outputText value="#{lang.LABEL_HEURES}"/>                        
+                            <rich:inputNumberSpinner minValue="0"
+                                                     step="5"
+                                                     value="#{editSessionsBean.dureeMinute}"
+                                                     maxValue="55"
+                                                     inputSize="3"/>
+                            <h:outputText value="#{lang.LABEL_MINUTES}"/>
+                        </h:panelGrid>                         
+                    </h:panelGroup>
+
+                    <h:message for="dureeInput" errorClass="message erreur"/>
+
+
+                    <h:outputLabel for="nbJoursInput"
+                                   value="#{lang.LABEL_NOMBRE_JOURS}"
+                                   styleClass="champ obligatoire"/>
+                    <h:inputText id="nbJoursInput" 
+                                 value="#{editSessionsBean.sessions.nbJours}"
+                                 title="Nombre de jours de formation"
+                                 required="true"
+                                 requiredMessage="#{lang.MSG_NBJOURS_OBLIGATOIRE}"
+                                 size="4" maxlength="3">
+                        <f:validateDoubleRange minimum="0.5" maximum="99.5"/>
+                    </h:inputText>
+                    <h:message for="nbJoursInput" errorClass="message erreur"/>
+
+
+
+                    <h:outputLabel for="statutInput"
+                                   value="#{lang.LABEL_STATUT}"
+                                   styleClass="champ obligatoire"/>
+                    <h:selectOneMenu id="statutInput"
+                                     value="#{editSessionsBean.sessions.idstatut}"
+                                     required="true"
+                                     requiredMessage="#{lang.MSG_STATUT_OBLIGATOIRE}">
+                        <f:selectItems value="#{editSessionsBean.statutItems}"/>
+                    </h:selectOneMenu>
+                    <h:message for="statutInput"
+                               errorClass="message erreur"/>
+
+                </h:panelGrid>
+
+                <h:commandButton  value="#{lang.LABEL_VALIDER}"
+                                  action="#{editSessionsBean.valide}"/>&nbsp;
+                <h:commandButton  value="#{lang.LABEL_RETOUR}"
+                                  immediate="true"
+                                  action="#{editSessionsBean.back}"/>
+            </h:form>
+            <rich:popupPanel id="panelFormateur" width="450" height="200">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="#{lang.LABEL_CREER_FORMATEUR}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:panelGroup>
+                        <h:outputLink value="#" onclick="#{rich:component('panelFormateur')}.hide();
+                                return false;">
+
+                            <h:graphicImage value="/images/Destroy.png"
+                                            styleClass="hidelink"
+                                            id="hidelink"/>
+
+                        </h:outputLink>
+                    </h:panelGroup>
+                </f:facet>
+                <h:form id="iFormFormateur">
+                    <h:panelGrid columns="3" styleClass="formulaire">
+                        <h:outputLabel for="nomInput"
+                                       value="#{lang.LABEL_NOM_FORMATEUR}"
+                                       styleClass="champ obligatoire"/>
+                        <h:inputText id="nomInput" value="#{editSessionsBean.formateur.nom}"
+                                     title="Nom" required="true"
+                                     requiredMessage="#{lang.MSG_FORMATEUR_OBLIGATOIRE}"
+                                     size="50" maxlength="200"
+                                     style="text-transform:uppercase;">
+                            <f:validator validatorId="fieldValidator"/>
+                            <f:attribute name="typeValidator" value="name"/>
+                            <f:attribute name="messageValidator"
+                                         value="#{lang.MSG_FORMAT_NOM_INVALIDE}"/>
+                            <f:validateLength minimum="2" maximum="200"/>
+                        </h:inputText>
+                        <h:message for="nomInput"
+                                   errorClass="message erreur"/>
+
+                        <h:outputLabel for="prenomInput" value="#{lang.LABEL_PRENOM}"
+                                       styleClass="champ obligatoire"/>
+                        <h:inputText id="prenomInput"
+                                     value="#{editSessionsBean.formateur.prenom}"
+                                     title="prenom" required="true"
+                                     requiredMessage="#{lang.MSG_FORMATEUR_OBLIGATOIRE}"
+                                     size="50" maxlength="200"
+                                     style="text-transform:capitalize;">
+                            <f:validator validatorId="fieldValidator"/>
+                            <f:attribute name="typeValidator" value="firstname"/>
+                            <f:attribute name="messageValidator"
+                                         value="#{lang.MSG_FORMAT_PRENOM_INVALIDE}"/>
+                            <f:validateLength minimum="2" maximum="200"/>
+                        </h:inputText>
+                        <h:message for="prenomInput"
+                                   errorClass="message erreur"/>
+                    </h:panelGrid>
+                    <a4j:commandButton value="#{lang.LABEL_VALIDER}"
+                                       id="saveFormateurButton"
+                                       action="#{editSessionsBean.saveFormateur}"
+                                       render="formateurInput"
+                                       onclick="#{rich:component('panelFormateur')}.hide()"/>
+                </h:form>
+            </rich:popupPanel>
+
+            <rich:popupPanel id="panelLieu" width="450" height="300">
+                <f:facet name="header">
+                    <h:panelGroup>
+                        <h:outputText value="#{lang.LABEL_CREER_LIEU}"/>
+                    </h:panelGroup>
+                </f:facet>
+                <f:facet name="controls">
+                    <h:panelGroup>
+                         <h:outputLink value="#" onclick="#{rich:component('panelLieu')}.hide();
+                             return false;">
+                             
+                        <h:graphicImage value="/images/Destroy.png"
+                                        styleClass="hidelink"
+                                        id="hidelink2"/></h:outputLink>                        
+                    </h:panelGroup>
+                </f:facet>
+                <h:form id="iFormLieu" >
+                    <h:messages globalOnly="true"/>
+                     
+                    <h:panelGrid columns="3" styleClass="formulaire">
+                        <h:outputLabel for="nomLieuInput" value="#{lang.LABEL_NOM_LIEU}"
+                                       styleClass="champ obligatoire"/>
+                        <h:inputText id="nomLieuInput" value="#{editSessionsBean.lieu.nom}"
+                                     title="Nom du lieu" required="true"
+                                     requiredMessage="#{lang.MSG_NOM_LIEU_OBLIGATOIRE}"
+                                     size="50" maxlength="200">
+                            <f:validateLength minimum="2" maximum="200"/>
+                        </h:inputText>
+                        <h:message for="nomLieuInput" errorClass="message erreur"/>
+
+                        <h:outputLabel for="adresseInput"
+                                       value="#{lang.LABEL_ADRESSE_LIEU}"
+                                       styleClass="champ obligatoire" />
+                        <h:inputText id="adresseInput"
+                                     required="true"                                      
+                                     requiredMessage="#{lang.MSG_ADRESSE_LIEU_OBLIGATOIRE}"
+                                     title="Adresse" size="50" maxlength="200"
+                                     value="#{editSessionsBean.lieu.adresse}"
+                                     />
+                        <h:message for="adresseInput" errorClass="message erreur"/>
+
+
+
+                        <h:outputLabel for="adresse2Input"
+                                       value="#{lang.LABEL_ADRESSE}"/>
+                        <h:inputText id="adresse2Input"
+                                     value="#{editSessionsBean.lieu.adresse2}"
+                                     title="Adresse complément" size="50" maxlength="200"/>
+                        <h:message for="adresse2Input" errorClass="message erreur"/>
+
+                        <h:outputLabel for="adresse3Input"
+                                       value="#{lang.LABEL_ADRESSE_SUITE}"/>
+                        <h:inputText id="adresse3Input"
+                                     value="#{editSessionsBean.lieu.adresse3}"
+                                     title="Adresse complémentaire" size="50" maxlength="200"/>
+                        <h:message for="adresse3Input" errorClass="message erreur"/>
+
+
+                        <h:outputLabel for="villeInput"
+                                       value="#{lang.LABEL_VILLE}"
+                                       styleClass="champ obligatoire"/>
+                        <h:inputText id="villeInput"
+                                     value="#{editSessionsBean.lieu.ville}"
+                                     title="Ville" required="true"
+                                     requiredMessage="#{lang.MSG_VILLE_OBLIGATOIRE}"
+                                     size="30" maxlength="30"
+                                     style="text-transform:uppercase;">
+                            <f:validator validatorId="fieldValidator"/>
+                            <f:attribute name="typeValidator" value="ville"/>
+                            <f:attribute name="messageValidator"
+                                         value="#{lang.MSG_FORMAT_VILLE_INVALIDE}"/>
+                            <f:validateLength minimum="2" maximum="30"/>
+                        </h:inputText>
+                        <h:message for="villeInput" errorClass="message erreur"/>
+
+                        <h:outputLabel for="codePostalInput"
+                                       value="#{lang.LABEL_CODEPOSTAL}"
+                                       styleClass="champ obligatoire"/>
+                        <h:inputText id="codePostalInput"
+                                     value="#{editSessionsBean.lieu.codepostal}"
+                                     title="Code postal" required="true"
+                                     requiredMessage="#{lang.MSG_CODEPOSTAL_OBLIGATOIRE}"
+                                     size="9" maxlength="5">
+                            <f:validator validatorId="fieldValidator"/>
+                            <f:attribute name="typeValidator" value="codepostal"/>
+                            <f:attribute name="messageValidator"
+                                         value="#{lang.MSG_FORMAT_CODEPOSTAL_INVALIDE}"/>
+                            <f:validateLength minimum="5" maximum="5"/>
+                        </h:inputText>
+                        <h:message for="codePostalInput" errorClass="message erreur"/>
+                    </h:panelGrid>
+                    <a4j:commandButton value="#{lang.LABEL_VALIDER}"
+                                       id="saveLieuButton"
+                                       action="#{editSessionsBean.saveLieu}" render="lieuInput"                                        
+                                       onclick="#{rich:component('panelLieu')}.hide()"
+                                       />
+                </h:form>
+            </rich:popupPanel>
+
+
+
+        </ui:define>
+    </ui:composition>
+</html>

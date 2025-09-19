@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:h="http://java.sun.com/jsf/html" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:a4j="http://richfaces.org/a4j" xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+        <ui:define name="titre_page">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="titre1">
+            <h:outputText value="#{lang.LABEL_DEMANDE_FORMATION}"/>
+        </ui:define>
+
+        <ui:define name="etape">
+            <div class="chip">
+                <i class="fa fa-list" aria-hidden="true"></i>
+                Choix de la session
+            </div>
+            <div class="chip">
+                <i class="fa fa-user" aria-hidden="true"></i>
+                Inscription
+            </div>
+            <div class="chip bifor-blue white-text">
+                <i class="fa fa-info" aria-hidden="true"></i>
+                Renseignement complémentaire
+            </div>
+            <div class="chip">
+                <i class="fa fa-check" aria-hidden="true"></i>
+                Confirmation
+            </div>
+        </ui:define>
+
+        <ui:define name="utilisateur">
+            <div class="chip" rendered="#{demande.estConnecte}">
+                <i class="fa fa-user"></i>&nbsp;
+                <h:outputText value="#{lang.LABEL_BIENVENUE}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.prenom}"/>&nbsp;
+                <h:outputText value="#{demande.stagiaire.nom}"/>
+            </div>
+        </ui:define>
+        
+        <ui:define name="encours">
+            <ul>
+                <li><h:outputText value="#{lang.LABEL_NOM_FORMATION}" /><b><h:outputText value="#{demande.typeFormation.nom}"/></b></li>
+                <li><b><h:outputText value="#{lang.LABEL_NOM}" /></b>: <h:outputText value="#{demande.stagiaire.nom}"/></li>
+                <li><b><h:outputText value="#{lang.LABEL_PRENOM}" /></b>: <h:outputText value="#{demande.stagiaire.prenom}"/></li>
+                <li><b><h:outputText value="#{lang.LABEL_CHOIX_PRIORITAIRE}" /></b>: <h:outputText value="#{demande.choixPrioritaire.titre}"/></li>
+                <li><b><h:outputText value="#{lang.LABEL_CHOIX_SECONDAIRE}" /></b>: <h:outputText value="#{demande.choixSecondaire.titre}"/></li>
+            </ul>
+        </ui:define>
+
+        <ui:define name="titre2">
+            <h:outputText value="#{lang.LABEL_ETAPE3}"/>
+        </ui:define>
+
+        <ui:define name="contenu">
+            <h:outputText value="#{lang.LABEL_INFOS_COMPLEMENTAIRES_HANDICAPS}" />
+            <h:outputText  style="display:block; margin-top:10px;" />
+            <br />
+            <h:form id="iForm3">
+                <fieldset style="width:95%">
+                    <legend>
+                        <h:outputText value="#{lang.LABEL_INFOS_COMPLEMENTAIRES}"/>
+                    </legend>
+                    <h:dataTable value="#{demande.reponses}" var="item" border="0" cellpadding="2" cellspacing="2" binding="#{inscriptionQuestionsBean.dataTable}">
+                        <h:column>
+                            <h:outputLabel value="#{item.idquestion.libellequestion}" /> &nbsp; <h:outputText value="*" styleClass="obligatoire"/>
+                        </h:column>
+                        
+                        <h:column>
+                            <h:panelGrid columns="3">
+                                <h:selectManyCheckbox  value="#{item.listeChoix}" id="questionCheckBox" required="true" requiredMessage="#{lang.MSG_CHOIX_OBLIGATOIRE}" rendered="#{(item.idquestion.uniquemultiple eq lang.VALUE_MULTIPLE)}">
+                                    <f:selectItems value="#{item.idquestion.selectChoix}" />
+                                </h:selectManyCheckbox>
+                                <h:selectOneRadio value="#{item.choix}" id="questionRadio" required="true" requiredMessage="#{lang.MSG_CHOIX_OBLIGATOIRE}" rendered="#{(item.idquestion.uniquemultiple ne lang.VALUE_MULTIPLE)}">
+                                    <f:selectItems value="#{item.idquestion.selectChoix}" />
+                                </h:selectOneRadio>
+
+                                <a4j:outputPanel id="calendar" layout="block">
+                                    <rich:calendar value="#{item.dateSpecification}" datePattern="dd/MM/yyyy" rendered="#{item.idquestion.specification}" />
+                                </a4j:outputPanel>
+                            </h:panelGrid>
+                        </h:column>
+                        <h:column>
+                            <h:message for="questionCheckBox" errorClass="message erreur"/>
+                            <h:message for="questionRadio" errorClass="message erreur"/>
+                        </h:column>
+                    </h:dataTable>
+                </fieldset>
+
+                <br /><br />
+
+                <h:commandLink styleClass="btn grey" value="#{lang.LABEL_PRECEDENT}" action="back" immediate="true"/>&nbsp;
+                <h:commandButton styleClass="btn bifor-blue" value="#{lang.LABEL_SUIVANT}" action="#{inscriptionQuestionsBean.next}"/>
+            
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+</html>

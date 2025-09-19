@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:f="http://java.sun.com/jsf/core" xmlns:ui="http://java.sun.com/jsf/facelets" xmlns:h="http://java.sun.com/jsf/html">
+    <h:head>
+        <title><ui:insert name="titre_page" /></title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet" />
+        
+        <!-- Insertion des styles de la page -->
+        <ui:insert name="styles">
+            <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/css/materialize.min.css" />
+            <link rel="stylesheet" href="css/general.css" />
+            <link rel="stylesheet" href="css/env.css" />
+            <link rel="stylesheet" href="css/rf-cal.css" />
+            <link rel="icon" type="image/x-icon" href="images/favicon.ico" />
+            <link rel="shortcut icon" href="/AGIFWeb/images/favicon.ico" />
+        </ui:insert>
+        
+            <!-- Scripts du menu asupp avec materialize-->
+        <ui:insert name="scripts">
+        </ui:insert>
+    </h:head>
+    <h:body>
+        <!-- ABES :  #{templateBean.nom_machine} %> -->
+        <f:view>
+            <div id="#{templateBean.css}">
+                <!--BEGIN - Header du site -->
+                <h:form>
+                    <nav class="bifor-blue">
+                        <div class="nav-wrapper container">
+                            <a class="brand-logo white-text" href="/"><span class="show-test">TEST</span> Les formations de l'ABES</a>
+                            <ul id="nav-mobile" class="right hide-on-med-and-down">
+                                <ui:insert name="menu">
+                                    <ui:insert name="menu_moncompte" />                                                       
+                                </ui:insert>
+                                <li><a href="http://www.abes.fr"><img src="../images/logo-ABES.png" title="ABES" alt="ABES" /></a></li>
+                            </ul>
+                        </div>
+                    </nav>
+                </h:form>
+                
+                <!--END - Header du site-->
+
+                <br />
+                
+                <div class="container row">
+                    <div class="chip right">
+                        <script type="text/javascript" language="javascript">
+                            d = new Date();
+                            document.write(d.toLocaleDateString()+ '  ' + d.toLocaleTimeString());
+                        </script>
+                    </div>
+                    
+                    <div id="lh_utilisateur">
+                        <ui:insert name="utilisateur" />
+                    </div>
+                </div>
+    
+                <!--BEGIN - Contenu du site -->
+                <div class="row container" id="lh_content">
+                    <h1>
+                        <ui:insert name="titre1" />
+                    </h1>
+                    
+                    <!--Etape dans laquelle on se trouve -->
+                    <ui:insert name="etape" />
+    
+                    <!--Données déjà saisie -->
+                    <ui:insert name="encours" />
+                    
+                    <!--titre de la page -->
+                    <h4><ui:insert name="titre2" /></h4>
+                    
+                    <br />
+                    
+                    <ui:insert name="contenu" />
+                </div>
+                <!--END - contenu du site-->
+                
+                <footer class="page-footer bifor-blue">
+                    <div class="container">
+                        <div class="row">
+                            <div class="col l6 s12">
+                                <h5 class="white-text">BiFor</h5>
+                                <p class="grey-text text-lighten-4">
+                                    Les informations recueillies dans ce formulaire sont enregistrées 
+                                    dans un fichier informatisé de l'Agence Bibliographique de l'Enseignement 
+                                    Supérieur (ABES) pour la gestion des inscriptions aux formations 
+                                    en présentiel proposées au sein des réseaux de l'ABES.<br/>
+									Elles sont conservées dans l'application pendant la durée de l'année universitaire 
+									en cours et sont destinées aux agents de l'équipe Formation de l'ABES. 
+									Au regard des obligations des dispensateurs de formation et des besoins 
+									des utilisateurs, l'ABES sauvegarde les documents de stage (attestations 
+									et feuilles d'émargement) depuis 2001. Conformément au Règlement Général 
+									sur la Protection des Données (RGPD) et à la loi « informatique et libertés », 
+									vous pouvez exercer votre droit d'accès aux données vous concernant et les 
+									faire rectifier en contactant : Guichet d'assistance ABESstp (<a href="https://stp.abes.fr">https://stp.abes.fr</a>).
+                                </p>
+                            </div>
+                            <div class="col l4 offset-l2 s12">
+                                <h5 class="white-text">Liens</h5>
+                                <ul>
+                                    <li><a class="grey-text text-lighten-3" href="https://abes.fr/pages-cgu/conditions-generales-utilisation-sites-abes.html"><h:outputText value="#{lang.LABEL_CGU}" /></a></li>
+                                    <li><a class="grey-text text-lighten-3" href="https://abes.fr/pages-donnees-personnelles/formations.abes.html"><h:outputText value="#{lang.LABEL_DONNEES_PERSONNELLES}" /></a></li>
+                                    <li><a class="grey-text text-lighten-3" href="https://abes.fr/pages-mentions-legales/formations.abes.html"><h:outputText value="#{lang.LABEL_MENTIONS_LEGALES}" /></a></li>
+                                    <li><a class="grey-text text-lighten-3" href="https://abes.fr/pages-accessibilite/formations.abes.html"><h:outputText value="#{lang.LABEL_ACCESSIBILITE}" /></a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="footer-copyright indigo darken-4">
+                        <div class="container">
+                            © 2016 Copyright ABES <a class="grey-text text-lighten-4 right" href="#">En haut</a>
+                        </div>
+                    </div>
+                </footer>
+            </div>
+        </f:view>
+        
+        <ui:insert name="scripts">
+            <noscript><p><img src="https://piwik.abes.fr/piwik.php?idsite=17" style="border:0;" alt="" /></p></noscript>
+            
+            <script type="text/javascript" src="https://code.jquery.com/jquery-3.1.0.min.js" />
+            <script type="text/javascript" src="js/packed.js"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/atmosphere/2.2.9/atmosphere.js" />
+            <script type="text/javascript" src="https://outils.abes.fr/cookie-banner/bandeau.js" id="cookie-banner-script" data-cookie-banner-url="https://https://abes.fr/pages-donnees-personnelles/formations.abes.html" data-cookie-banner-style="z-index: 10000; background-color: black; position: absolute; width: 100%; top: 0; padding: 0.5%; color: white;"></script>
+            <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.6/js/materialize.min.js"></script>
+            <script type="text/javascript" src="https://use.fontawesome.com/46f2a5fde4.js"></script>
+            <script type="text/javascript" src="js/piwik.js" />
+            <script type="text/javascript" src="js/init.js"></script>
+        </ui:insert>        
+    </h:body>
+</html>
